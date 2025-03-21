@@ -6,9 +6,10 @@ import type { LatLngExpression } from 'leaflet';
 const HPI_POSITION: LatLngExpression = [52.391, 13.131];
 
 const polygon: LatLngExpression[] = [
-  [52.389, -13.129],
-  [52.392, -13.127],
-  [52.395, -13.14],
+  [52.391601, 13.123174],
+  [52.391754, 13.131862],
+  [52.394646, 13.134619],
+  [52.393637, 13.122751],
 ]
 /*
 geo:52.391601,13.123174?z=19
@@ -33,7 +34,7 @@ export default function Map() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-        {/* <Polygon pathOptions={blueOptions} positions={polygon} /> */}
+        <Polygon pathOptions={blueOptions} positions={polygon} />
     </MapContainer>
     )
 }

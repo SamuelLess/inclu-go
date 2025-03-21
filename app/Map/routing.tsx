@@ -1,5 +1,8 @@
 import type { LatLngExpression } from 'leaflet';
 
+const BASE_URL = "http://localhost:8080/ors/v2/directions/foot-walking";
+const get_url = () => `${BASE_URL}/${}, ${}, ${}`;
+
 const polygons: LatLngExpression[][] = [
     [
         [52.389, -13.129],
@@ -12,5 +15,4 @@ const polygons: LatLngExpression[][] = [
         [52.342, -13.12]
     ],
 ];
-
 
