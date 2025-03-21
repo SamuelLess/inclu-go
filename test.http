@@ -1,0 +1,32 @@
+POST http://localhost:8114/ors/v2/directions/foot-walking
+Content-Type: application/json
+Accept: application/json
+
+{
+  "coordinates": [
+    [
+      13.123174,
+      52.391601
+    ],
+    [
+      13.131862,
+      52.391754
+    ]
+  ]
+}
+
+###
+GET http://localhost:8114/ors/health
+Accept: application/json
+
+###
+POST http://localhost:8114/ors/v2/export/driving-car
+Content-Type: application/json
+Accept: application/json
+
+{
+  "bbox": [
+    [52.391601, 13.123174],
+    [51.391754, 13.131862]
+  ]
+}

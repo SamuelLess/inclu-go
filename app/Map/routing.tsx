@@ -1,18 +1,42 @@
 import type { LatLngExpression } from 'leaflet';
 
-const BASE_URL = "http://localhost:8080/ors/v2/directions/foot-walking";
-const get_url = () => `${BASE_URL}/${}, ${}, ${}`;
+export const getCoordsFromAdress = async (description: string) => {
+  const BASE_URL = "http://localhost:8114/ors/v2/geocode/search";
+  
+  const response = fetch(`${BASE_URL}?text=${encodeURIComponent(description)}`,
+    {
+    method: "GET",
+    headers: { "Content-Type": "application/json" }
+  });
+  const data = response.then(r => r.json())
 
-const polygons: LatLngExpression[][] = [
-    [
-        [52.389, -13.129],
-        [52.392, -13.127],
-        [52.395, -13.14]
-    ],
-    [
-        [52.37, -13.134],
-        [52.34, -13.123],
-        [52.342, -13.12]
-    ],
-];
+  const midpoint = (arr: number[]) => [(arr[1]+arr[3])/2, (arr[0]+arr[2])/2];
 
+  return data.then((d : any) => {
+    console.log(midpoint(d["bbox"]));
+    return midpoint(d["bbox"]);
+  }).catch(e => {
+    console.error(e);
+  })
+
+}
+
+export const getWalkingRoute = async (start: LatLngExpression, end: LatLngExpression, avoidPolygon: any) => {
+    const BASE_URL = "http://localhost:8114/ors/v2/directions/foot-walking";
+    const fixShitApi = (arr: any) => [arr[1], arr[0]] 
+    const response = fetch(BASE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        coordinates: [fixShitApi(start), fixShitApi(end)],
+      }),
+    });
+    const data = response.then(r => r.json())
+
+    return data.then((d : any) => {
+      console.log(d)
+      return d;
+    }).catch(e => {
+      console.error(e);
+    })
+}
