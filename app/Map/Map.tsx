@@ -6,9 +6,11 @@ import React from 'react';
 import { useState } from "react";
 import { InputRoute } from './InputRoute';
 import { Overlay } from './Overlay';
+import * as OBSTACLES from './obstacles';
+import Obstacle from './Obstacle';
 
 //const [destination, setDestination] = React.useState("Hallo");
-const route = getWalkingRoute(START, END, obstacles);
+const route = getWalkingRoute(START, END, OBSTACLES);
 console.log(route);
 const adress = getCoordsFromAdress("Hasso-Plattner-Institut Potsdam");
 console.log(adress);
@@ -71,21 +73,11 @@ export default function Map() {
             }
           }} />
 
-          <Polygon pathOptions={{ color: "#62A0EA" /* blue */ }} positions={hpiBuilding} />
+        
 
-          {obstacles.map(obstacle => {
-            return (<Polygon pathOptions={{ color: "#ED333B" /* red */ }} positions={obstacle} />)
+          {OBSTACLES.obstacles.map((obstacle, id) => {
+            return (<Obstacle key={id} obstacle={obstacle} />)
           })};
-
-          {clickedPosition && (
-            <Marker position={[clickedPosition.lat, clickedPosition.lng]}>
-              <Popup>
-                Latitude: {clickedPosition.lat.toFixed(6)} 
-                <br />
-                Longitude: {clickedPosition.lng.toFixed(6)}
-              </Popup>
-            </Marker>
-          )}
         </MapContainer>
       </div>
       <div className='absolute top-0 left-0 w-full z-1000'>

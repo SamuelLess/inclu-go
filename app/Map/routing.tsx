@@ -1,12 +1,14 @@
 import type { LatLngExpression } from 'leaflet';
 
 export const getCoordsFromAdress = async (description: string) => {
-  const BASE_URL = "http://localhost:8114/ors/v2/geocode/search";
+  const BASE_URL = "https://nominatim.openstreetmap.org/search";
   
-  const response = fetch(`${BASE_URL}?text=${encodeURIComponent(description)}`,
-    {
-    method: "GET",
-    headers: { "Content-Type": "application/json" }
+  const response = fetch(BASE_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      q: encodeURIComponent(description),
+    }),
   });
   const data = response.then(r => r.json())
 
@@ -34,7 +36,7 @@ export const getWalkingRoute = async (start: LatLngExpression, end: LatLngExpres
     const data = response.then(r => r.json())
 
     return data.then((d : any) => {
-      console.log(d)
+      //console.log(d["routes"][0]["segments"][0]["steps"])
       return d;
     }).catch(e => {
       console.error(e);

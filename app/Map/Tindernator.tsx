@@ -1,51 +1,151 @@
-import React, { useRef, useEffect, useState } from "react";
-import { motion, useMotionValue, useAnimation } from "framer-motion";
-import styled from "@emotion/styled";
-import {  Children } from "react"
-import "./stylonator.css"
+// @ts-nocheck
+import React, { useState, useEffect, useRef } from 'react';
+import Hammer from 'hammerjs';
+import './stylonator.css'; 
 
-export default function Tindernator() {
+export function Tindernator() {
+  const [cards, setCards] = useState([
+    { id: 1, content: 'Card 1' },
+    { id: 2, content: 'Card 2' },
+    { id: 3, content: 'Card 3' },
+  ]);
+
+  const tinderContainerRef = useRef(null);
+  const nopeRef = useRef(null);
+  const loveRef = useRef(null);
+
+  useEffect(() => {
+    const initCards = () => {
+      if (tinderContainerRef.current) {
+        tinderContainerRef.current.classList.add('loaded');
+      }
+
+      const newCards = document.querySelectorAll('.tinder--card:not(.removed)');
+
+      newCards.forEach((card, index) => {
+        card.style.zIndex = cards.length - index;
+        card.style.transform = `scale(${(20 - index) / 20}) translateY(-${30 * index}px)`;
+        card.style.opacity = (10 - index) / 10;
+      });
+    };
+
+    initCards();
+
+    const allCards = document.querySelectorAll('.tinder--card');
+
+    allCards.forEach((el) => {
+      const hammertime = new Hammer(el);
+
+      hammertime.on('pan', (event) => {
+        el.classList.add('moving');
+      });
+
+      hammertime.on('pan', (event) => {
+        if (event.deltaX === 0) return;
+        if (event.center.x === 0 && event.center.y === 0) return;
+
+        if (tinderContainerRef.current) {
+          tinderContainerRef.current.classList.toggle(
+            'tinder_love',
+            event.deltaX > 0
+          );
+          tinderContainerRef.current.classList.toggle(
+            'tinder_nope',
+            event.deltaX < 0
+          );
+        }
+
+        const xMulti = event.deltaX * 0.03;
+        const yMulti = event.deltaY / 80;
+        const rotate = xMulti * yMulti;
+
+        event.target.style.transform = `translate(${event.deltaX}px, ${event.deltaY}px) rotate(${rotate}deg)`;
+      });
+
+      hammertime.on('panend', (event) => {
+        el.classList.remove('moving');
+        if (tinderContainerRef.current) {
+          tinderContainerRef.current.classList.remove('tinder_love');
+          tinderContainerRef.current.classList.remove('tinder_nope');
+        }
+
+        const moveOutWidth = document.body.clientWidth;
+        const keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
+
+        event.target.classList.toggle('removed', !keep);
+
+        if (keep) {
+          event.target.style.transform = '';
+        } else {
+          const endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
+          const toX = event.deltaX > 0 ? endX : -endX;
+          const endY = Math.abs(event.velocityY) * moveOutWidth;
+          const toY = event.deltaY > 0 ? endY : -endY;
+          const xMulti = event.deltaX * 0.03;
+          const yMulti = event.deltaY / 80;
+          const rotate = xMulti * yMulti;
+
+          event.target.style.transform = `translate(${toX}px, ${
+            toY + event.deltaY
+          }px) rotate(${rotate}deg)`;
+          initCards();
+        }
+      });
+    });
+
+    const createButtonListener = (love) => (event) => {
+      const allCards = document.querySelectorAll('.tinder--card:not(.removed)');
+      const moveOutWidth = document.body.clientWidth * 1.5;
+
+      if (!allCards.length) return false;
+
+      const card = allCards[0];
+
+      card.classList.add('removed');
+
+      if (love) {
+        card.style.transform = `translate(${moveOutWidth}px, -100px) rotate(-30deg)`;
+      } else {
+        card.style.transform = `translate(-${moveOutWidth}px, -100px) rotate(30deg)`;
+      }
+
+      initCards();
+
+      event.preventDefault();
+    };
+
+    if (nopeRef.current && loveRef.current) {
+      nopeRef.current.addEventListener('click', createButtonListener(false));
+      loveRef.current.addEventListener('click', createButtonListener(true));
+    }
+
+    return () => {
+      // Cleanup event listeners if needed
+      if (nopeRef.current && loveRef.current) {
+        nopeRef.current.removeEventListener('click', createButtonListener(false));
+        loveRef.current.removeEventListener('click', createButtonListener(true));
+      }
+    };
+  }, [cards]);
+
   return (
-    <div>
-<div className="tinder">
-  <div className="tinder--status">
-    <i className="fa fa-remove"></i>
-    <i className="fa fa-heart"></i>
-  </div>
+    <div className="tinder flex-column" ref={tinderContainerRef}>
+      <div className="tinder--cards">
+        {cards.map((card) => (
+          <div key={card.id} className="tinder--card">
+            {card.content}
+          </div>
+        ))}
+      </div>
 
-  <div className="tinder--cards">
-    <div className="tinder--card">
-      <img src="https://placeimg.com/600/300/people" />
-      <h3>Demo card 1</h3>
-      <p>This is a demo for Tinder like swipe cards</p>
-    </div>
-    <div className="tinder--card">
-      <img src="https://placeimg.com/600/300/animals" />
-      <h3>Demo card 2</h3>
-      <p>This is a demo for Tinder like swipe cards</p>
-    </div>
-    <div className="tinder--card">
-      <img src="https://placeimg.com/600/300/nature" />
-      <h3>Demo card 3</h3>
-      <p>This is a demo for Tinder like swipe cards</p>
-    </div>
-    <div className="tinder--card">
-      <img src="https://placeimg.com/600/300/tech" />
-      <h3>Demo card 4</h3>
-      <p>This is a demo for Tinder like swipe cards</p>
-    </div>
-    <div className="tinder--card">
-      <img src="https://placeimg.com/600/300/arch" />
-      <h3>Demo card 5</h3>
-      <p>This is a demo for Tinder like swipe cards</p>
-    </div>
-  </div>
-
-  <div className="tinder--buttons">
-    <button id="nope"><i className="fa fa-remove"></i></button>
-    <button id="love"><i className="fa fa-heart"></i></button>
-  </div>
-</div>
+      <div className="tinder--buttons">
+        <button ref={nopeRef} id="nope">
+          No
+        </button>
+        <button ref={loveRef} id="love">
+          Slay queen
+        </button>
+      </div>
     </div>
   );
 }
