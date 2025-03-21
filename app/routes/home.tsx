@@ -6,9 +6,8 @@ export function meta({}: Route.MetaArgs) {
     {name: "description", content: "Better life for everyone!"},
   ];
 }
-
 export default function Home() {
   return <main className="bg-main p-4 grid justify-center gap-4">
-    <div>Test NR 2</div>
+    <div>Test NR 3</div>
   </main>
 }
