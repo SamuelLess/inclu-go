@@ -1,0 +1,54 @@
+HPI-Campus:
+
+Süd-Ost:
+52.391601, 13.123174
+August-Bebel-Straße x Stahnsdorfer Straße
+
+Süd-West:
+52.391754, 13.131862
+Stahnsdorfer Straße x Bernhard-Beyer-Straße
+
+Nord-West:
+52.394646, 13.134619
+Schaltposten Griebnitzsee
+
+Nord-Ost:
+52.393637, 13.122751?z=17
+August-Bebel-Straße x Prof.-Dr.-Helmer-Straße
+
+
+S Bahn Griebnitzsee:
+
+Süd:
+52.394441, 13.127286
+
+Nord:
+52.394235, 13.128297
+
+
+Bahnübergang August-Bebel-Straße (Hindernis):
+
+Süd-Ost:
+52.393788, 13.122474
+
+Süd-West:
+52.393831, 13.122987
+
+Nord-West:
+52.394011, 13.122976
+
+Nord-Ost:
+52.393981, 13.122423
+
+Parkplatz-links (Hindernis):
+Süd-Ost:
+52.393080, 13.126817
+
+Süd-West:
+52.393080, 13.126881
+
+Nord-West:
+52.393518, 13.127037
+
+Nord-Ost:
+52.393535, 13.126945
