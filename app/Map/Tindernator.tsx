@@ -8,6 +8,10 @@ export function Tindernator() {
     { id: 1, content: 'Card 1' },
     { id: 2, content: 'Card 2' },
     { id: 3, content: 'Card 3' },
+    { id: 4, content: 'Card 4' },
+    { id: 5, content: 'Card 5' },
+    { id: 6, content: 'Card 6' },
+
   ]);
 
   const tinderContainerRef = useRef(null);
@@ -92,57 +96,58 @@ export function Tindernator() {
         }
       });
     });
+  }, [cards]);
 
-    const createButtonListener = (love) => (event) => {
-      const allCards = document.querySelectorAll('.tinder--card:not(.removed)');
-      const moveOutWidth = document.body.clientWidth * 1.5;
+  const createButtonListener = (love) => (event) => {
+    const allCards = document.querySelectorAll('.tinder--card:not(.removed)');
+    const moveOutWidth = document.body.clientWidth * 1.5;
 
-      if (!allCards.length) return false;
+    if (!allCards.length) return false;
 
-      const card = allCards[0];
+    const card = allCards[0];
 
-      card.classList.add('removed');
-
-      if (love) {
-        card.style.transform = `translate(${moveOutWidth}px, -100px) rotate(-30deg)`;
-      } else {
-        card.style.transform = `translate(-${moveOutWidth}px, -100px) rotate(30deg)`;
-      }
-
-      initCards();
-
-      event.preventDefault();
-    };
-
-    if (nopeRef.current && loveRef.current) {
-      nopeRef.current.addEventListener('click', createButtonListener(false));
-      loveRef.current.addEventListener('click', createButtonListener(true));
+    card.classList.add('removed');
+    document.querySelectorAll('.tinder--card:not(.removed)').forEach(element => {
+      element.classList.toggle("updater")
+    });
+    if (love) {
+      card.style.transform = `translate(${moveOutWidth}px, -100px) rotate(-30deg)`;
+    } else {
+      card.style.transform = `translate(-${moveOutWidth}px, -100px) rotate(30deg)`;
     }
 
-    return () => {
-      // Cleanup event listeners if needed
-      if (nopeRef.current && loveRef.current) {
-        nopeRef.current.removeEventListener('click', createButtonListener(false));
-        loveRef.current.removeEventListener('click', createButtonListener(true));
-      }
-    };
-  }, [cards]);
+    initCards();
+
+    event.preventDefault();
+  };
 
   return (
     <div className="tinder flex-column" ref={tinderContainerRef}>
       <div className="tinder--cards">
         {cards.map((card) => (
-          <div key={card.id} className="tinder--card">
+          <div key={card.id} className="tinder--card updater">
             {card.content}
           </div>
         ))}
       </div>
 
       <div className="tinder--buttons">
-        <button ref={nopeRef} id="nope">
+        <button 
+        ref={nopeRef} 
+        id="nope"
+        onClick={
+          createButtonListener(false)
+        }
+        >
           No
         </button>
-        <button ref={loveRef} id="love">
+        <button 
+          ref={loveRef} 
+          id="love"
+          onClick={
+            createButtonListener(true)
+          }
+        >
           Slay queen
         </button>
       </div>

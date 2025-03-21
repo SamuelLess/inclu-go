@@ -1,51 +1,94 @@
 import { useState } from "react";
 import { Card, CardContent } from "~/components/ui/card";
-import { Slider } from "~/components/ui/slider"
+import { Slider } from "~/components/ui/slider";
 
-const images = {
-    'beach': '/obstacles/beach.jpg',
-    'stairs': '/obstacles/normalstairs.jpg',
-    'elevator': '/obstacles/elevator.jpg',
-    'construction': '/obstacles/construction.jpg',
-    'escalator': '/obstacles/escalator.jpg',
-    'handrail': '/obstacles/.jpg',
-}
+const OBSTACLES = {
+    beach: {
+        img: '/obstacles/beach.jpg',
+        severity: 80,
+        description: 'Sandy environment',
+        status: 'Diffirent access paths planned.',
+        about: 'This is just some beach.',
+    },
+    stairs: {
+        img: '/obstacles/normalstairs.webp',
+        severity: 40,
+        description: 'Stairs',
+        status: '',
+    },
+    broken_lift: {
+        img: '/obstacles/brokenlift.jpg',
+        severity: 85,
+        description: 'Broken Lift',
+        status: 'under maintenance',
+        about: 'Elevator in City Shopping Mall broken. Should be repaired in 2 days.',
+    },
+    bumpy_path: {
+        img: '/obstacles/bumpy.jpg',
+        severity: 60,
+        description: 'Bumpy Path',
+        status: '',
+        about: 'Uneven pavement makes movement difficult.',
+    },
+    missing_handrail: {
+        img: '/obstacles/handrail.jpg',
+        severity: 50,
+        description: 'Missing Handrail',
+        status: '',
+        about: 'No handrail support on a steep staircase.',
+    },
+    steep_incline: {
+        img: '/obstacles/incline.jpg',
+        severity: 75,
+        description: 'Steep Incline',
+        status: 'no alternative route',
+        about: 'A steep hill makes wheelchair movement challenging.',
+    },
+    unusual_stairs: {
+        img: '/obstacles/weirdstairs.jpg',
+        severity: 70,
+        description: 'Unusual Stairs',
+        status: '',
+        about: 'Oddly shaped stairs that are difficult to navigate.',
+    },
+    wheelchair_access: {
+        img: '/obstacles/wheelchair.webp',
+        severity: 30,
+        description: 'Limited Wheelchair Access',
+        status: 'needs improvement',
+        about: 'Wheelchair access is available but not optimal.',
+    },
+};
 
 
+export const ALL_TYPES = Object.keys(OBSTACLES);
 
-const ObstacleCard = () => {
-
-    const [severity, setSeverity] = useState(20);
-    const getColor = () => {
-    if (severity < 30) return "bg-green-500";
-    if (severity < 70) return "bg-yellow-500";
-    return "bg-red-500";
-  };
-
+const ObstacleCard = ({ type = "beach" }) => {
+  // @ts-ignore
+  const obstacle = OBSTACLES[type] || OBSTACLES.beach;
+  const [severity, setSeverity] = useState(obstacle.severity);
 
   return (
     <Card className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
       <div className="relative w-full h-48">
         <img 
-          src="/obstacles/beach.jpg" // Ensure the image is placed in the public directory
-          alt="Broken Elevator"
+          src={obstacle.img} 
+          alt={obstacle.description} 
           className="w-full h-full object-cover"
         />
       </div>
       <CardContent className="p-4">
-        <h2 className="text-lg font-bold">Broken Elevator</h2>
-        <p className="text-gray-500">repair planned</p>
-        <div className="mt-2">
-          <h3 className="text-sm font-semibold text-gray-600">ABOUT</h3>
-          <p className="text-sm text-gray-700">
-            Elevator in City Shopping Mall broken. Should be repaired in 2 days.
-          </p>
-        </div>
+        <h2 className="text-lg font-bold">{obstacle.description}</h2>
+        <p className="text-gray-500">{obstacle.status || 'No status available'}</p>
+        {obstacle.about && (
+          <div className="mt-2">
+            <h3 className="text-sm font-semibold text-gray-600">ABOUT</h3>
+            <p className="text-sm text-gray-700">{obstacle.about}</p>
+          </div>
+        )}
         <div className="mt-4">
           <h3 className="text-sm font-semibold text-gray-600">BARRIER SEVERITY</h3>
-          {/*<Progress value={20} className="mt-1" />*/}
-           <Slider defaultValue={[severity]} onValueChange={setSeverity} max={100} step={10} 
-                   className={`h-2 w-full mt-2 rounded ${getColor()}`} />
+          <Slider defaultValue={[severity]} onValueChange={setSeverity} max={100} step={10} />
         </div>
       </CardContent>
     </Card>

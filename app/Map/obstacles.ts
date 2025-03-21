@@ -1,7 +1,7 @@
 export type ObstacleObject = {
     lat: number;
     lon: number;
-    type: "stairs" | "path";
+    type: "stairs" | "path" | "elevator" | "slope";
 };
 
 export const obstacles : ObstacleObject[] = [

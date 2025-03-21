@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Polygon, Marker, Popup, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Polygon, Marker, Popup, useMapEvents, Polyline } from 'react-leaflet';
 import type { LatLngExpression } from 'leaflet';
 import { obstacles, HPI_POSITION, hpiBuilding, START, END } from './hardcoded';
 import { getWalkingRoute, getCoordsFromAdress } from "./routing";
@@ -47,6 +47,8 @@ export default function Map() {
     };
   }, []);
 
+    const route = getWalkingRoute(START, END, OBSTACLES);
+
   return (
     <div className="h-full w-full relative">
 
@@ -73,13 +75,14 @@ export default function Map() {
             }
           }} />
 
-        
+          <Polyline positions={route} color="blue" weight={5} opacity={0.7} />
 
           {OBSTACLES.obstacles.map((obstacle, id) => {
             return (<Obstacle key={id} obstacle={obstacle} />)
           })};
         </MapContainer>
       </div>
+
       <div className='absolute top-0 left-0 w-full z-1000'>
         <InputRoute
           dest={destination} setDest={setDestination} destRef={destinationRef}
