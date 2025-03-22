@@ -30,7 +30,7 @@ const FLAG: any = new L.divIcon({
   iconAnchor: [12, 25],
   popupAnchor: [0, -15],
   iconSize: [32, 32],
-  html: `<div style="border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${destFlag}</div>`
+  html: `<div style="background-color: #FFFFFF;border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${destFlag}</div>`
 });
 
 //@ts-ignore
@@ -39,7 +39,7 @@ const PIN: any = new L.divIcon({
   iconAnchor: [12, 25],
   popupAnchor: [0, -15],
   iconSize: [32, 32],
-  html: `<div style="border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${startPin}</div>`
+  html: `<div style="background-color: #FFFFFF;border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${startPin}</div>`
 });
 
 const flip = (arr: LatLngExpression[]) => [arr[1], arr[0]];

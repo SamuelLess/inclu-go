@@ -78,7 +78,8 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
         const keep = (Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5);
 
         event.target.classList.add('removed');
-        setResponses(responses.concat(!keep))
+        setResponses(responses.concat(event.deltaX > 0))
+        console.log("resp " + responses);
 
         if (keep) {
           event.target.style.transform = '';
@@ -161,7 +162,7 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
 
         <div className="tinder--cards">
           {cards.map((card) => (
-            <img id={card.id} src={card?.content} key={card.id} className="tinder--card rounded-2xl inset-shadow" draggable="false" />
+            <img id={card.id} src={card?.content} key={card.id} className="tinder--card rounded-2xl inset-shadow-sm shadow-gray-800" draggable="false" />
           ))}
         </div>
 

@@ -3,6 +3,7 @@
 
 Whether you use a wheelchair, a prosthetic, have visual impairments, 
 or prefer to avoid crowded spaces — we prioritize accessibility for you.
+Because **every disability is unique** to you.
 
 With our novel machine learning algorithm we can present you with your own unique route planning you deserve.
 
@@ -11,6 +12,8 @@ With our novel machine learning algorithm we can present you with your own uniqu
 - A simple "tinder-like" introduction that quickly gives you accurate results based on real life statistics and your preferences
 - A simple interface that helps you to continuously personalize your experience with each day
 
+
+
 ## What we plan to implement
 - Adding obstacles with a personalised barrier severity
 - A profile and settings tab
@@ -18,3 +21,9 @@ With our novel machine learning algorithm we can present you with your own uniqu
 - A seperate webinterface for public facilities to see which obstacles have the highest overall barrier severity and should be fixed as soon as possible
 
 ![Adding Pictures](public/pictures/adding.png)
+
+![Open Facilities](public/pictures/open.png)
+
+![Profile Tab](public/pictures/profile.png)
+
+![Settings Tab](public/pictures/settings.png)

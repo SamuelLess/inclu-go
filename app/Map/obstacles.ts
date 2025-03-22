@@ -132,4 +132,19 @@ export const obstacles : ObstacleObject[] = [
         "type": "path",
         "features": [0.2, 0, 0.1, 0.9]
     },
+    {// Bhf Baustelle 
+        "name": "Baustelle",
+        "img": '/pictures/bhfbaustelle.webp',
+        "desc": "",
+        "coords": [
+            [52.393859,13.127310],
+            [52.393864,13.127503],
+            [52.393943,13.127519],
+            [52.393997,13.128034],
+            [52.394111,13.128005],
+            [52.394028,13.127297]
+        ],
+        "type": "path",
+        "features": [0, 0, 0.1, 0.9]
+    },
 ];
