@@ -20,7 +20,9 @@ export function InputRoute(props: {
                     ref={props.startRef}
                     value={props.start}
                     onKeyPress={(event) => {
-                        if (event.key == "Enter")props.update();
+                        if (event.key == "Enter") {
+                            props.update();
+                        }
                     }}
                     onChange={(event) => {
                         props.setStart(event.target.value)
@@ -34,7 +36,9 @@ export function InputRoute(props: {
                     ref={props.destRef}
                     value={props.dest}
                     onKeyPress={(event) => {
-                        if (event.key == "Enter")props.update();
+                        if (event.key == "Enter"){
+                            props.update()
+                        }
                     }}
                     onChange={(event) => {
                         props.setDest(event.target.value)

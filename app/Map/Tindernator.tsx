@@ -159,12 +159,12 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
         {/* Thank you message with NavLink */}
         {allCardsProcessed && (
          <>
-            <h1 className='text-xl'>All done!</h1>
-            <p> We've got enough information to get you started. 
-              As you use the app, our pathfinding wil </p>
-            <NavLink to="/map" className="continue-button">
+            <h1 className='text-3xl font-extrabold mb-4'>All done!</h1>
+            <p className='mb-[40px]'> We've got enough information to get you started. 
+              As you use the app, our pathfinding will improve further. </p>
+            <center><NavLink to="/map" className={'w-full'}>
               <Button>Start exploring</Button>
-            </NavLink>
+            </NavLink></center>
           </>
         )}
       </div>

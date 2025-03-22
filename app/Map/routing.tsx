@@ -78,6 +78,10 @@ export const getWalkingRoute = async (start: LatLngExpression, end: LatLngExpres
     const data = response.then(r => r.json())
     
     return data.then((d) => {
+      // check if d["routes"] exists
+      if (!d["routes"]) {
+        return [];
+      }
       //console.log(d["routes"][0]["segments"][0]["steps"])
       console.log(decodePolyline(d["routes"][0]["geometry"]));
       return decodePolyline(d["routes"][0]["geometry"]);

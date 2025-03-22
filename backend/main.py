@@ -28,10 +28,10 @@ async def proxy(path: str, request: Request):
             method=request.method,
             url=target_url,
             follow_redirects=True,
-            headers={key: value for key, value in request.headers.items() if key.lower() != "host"},
-            content=await request.body(),
+            headers={key: value for key, value in request.headers.items() if key.lower() != "host"} |
+                {'User-Agent': 'HackHPI2025APP/5.0'},
         )
-    print(response.text)
+    print(f"{response=}", flush=True)
     return response.text
 
 
