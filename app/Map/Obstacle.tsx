@@ -71,7 +71,7 @@ export default function Obstacles(props: {
                     iconAnchor: [12, 25],
                     popupAnchor: [0, -15],
                     iconSize: [32, 32],
-                    html: `<div style="background-color: ${color}; border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${icon}</div>`
+                    html: `<div style="background-color: ${color}; border-radius: 50%; width: 32px; height: 32px; padding: 8px; box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2);">${icon}</div>`
                 });
 
                 return (<Marker position={position as LatLngExpression}
