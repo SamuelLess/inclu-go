@@ -71,7 +71,6 @@ const ObstacleCard = (props: {
   severity: number,
   onClose?: () => void
 }) => {
-
   // @ts-ignore
   const obstacle = OBSTACLES[props.type] || OBSTACLES.beach;
   const [severity, setSeverity] = useState(obstacle.severity);
@@ -125,7 +124,7 @@ const ObstacleCard = (props: {
             {(context) => {
               const severity = context?.severeties[props.selectedObstacle] || 0;
               console.log("severity", severity);
-              return <Slider value={[severity]} onValueChange={(newValue) => {
+              return <Slider value={[severity*100]} onValueChange={(newValue) => {
                 
                 context?.setSevereties((oldSeverities : number[]) => {
                   const newSeverities = [...oldSeverities];

@@ -96,18 +96,4 @@ export const obstacles : ObstacleObject[] = [
         "features": [1, 0.2, 0.1, 0.5]
     },
 
-
-
-
-
 ];
-
-export type SwipeObstacleObject = {
-    image_name: string;
-    features: number[];
-};
-
-// Die Objekte beim Swipen
-export const swipeObstacles: SwipeObstacleObject[] = [
-    
-]

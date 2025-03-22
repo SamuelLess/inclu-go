@@ -9,7 +9,7 @@ export function InputRoute(props: {
     start: string,
     setStart: React.Dispatch<React.SetStateAction<string>>,
     startRef: React.RefObject<HTMLInputElement | null>,
-    update: any
+    update: any,
 }) {
     return (
         <div className="flex flex-col bg-white p-2 gap-y-2 pt-4">
@@ -19,7 +19,7 @@ export function InputRoute(props: {
                 <Input size={32}
                     ref={props.startRef}
                     value={props.start}
-                    onKeyPress={(event) => {
+                    onKeyUp={(event) => {
                         if (event.key == "Enter") {
                             props.update();
                         }

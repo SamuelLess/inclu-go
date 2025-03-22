@@ -28,9 +28,9 @@ export default function Obstacles(props: {
     onClick: () => void
 }) {
 
-    console.log('Obstacle', props.obstacleId);
+    //console.log('Obstacle', props.obstacleId);
     const obstacle = obstacles[props.obstacleId];
-    console.log(obstacle);
+    //console.log(obstacle);
 
     let icon = '';
     switch (obstacle.type) {

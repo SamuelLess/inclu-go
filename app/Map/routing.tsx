@@ -12,8 +12,8 @@ export const getCoordsFromAdress = async (description: string) => {
 
   return data.then((d : any) => {
     const jsonData = JSON.parse(d);
-    console.log(jsonData);
-    console.log(jsonData["features"][0]["geometry"]["coordinates"])
+    //console.log(jsonData);
+    //console.log(jsonData["features"][0]["geometry"]["coordinates"])
     return jsonData["features"][0]["geometry"]["coordinates"];
   }).catch(e => {
     console.error(e);
@@ -83,7 +83,7 @@ export const getWalkingRoute = async (start: LatLngExpression, end: LatLngExpres
         return [];
       }
       //console.log(d["routes"][0]["segments"][0]["steps"])
-      console.log(decodePolyline(d["routes"][0]["geometry"]));
+      //console.log(decodePolyline(d["routes"][0]["geometry"]));
       return decodePolyline(d["routes"][0]["geometry"]);
     }).catch(e => {
       console.error(e);

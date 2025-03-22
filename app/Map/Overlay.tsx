@@ -2,29 +2,25 @@ import { useState, useEffect } from "react";
 import InfoPopup from "~/components/InfoPopup"
 
 export const Overlay = (props : {
-    selectedObstacle: number
+    selectedObstacle: number | null
+    onClose: () => void
 }) => {
-    const [isVisible, setIsVisible] = useState(true);
-
-    // Reset visibility when a new obstacle is selected
-    useEffect(() => {
-        setIsVisible(true);
-    }, [props.selectedObstacle]);
+    const isVisible = props.selectedObstacle !== null;
 
     const handleClose = () => {
-        setIsVisible(false);
+        props.onClose();
     };
 
     return (
         <div className={`absolute bottom-0 right-0 rounded-lg w-full z-1000 p-4 transition-all duration-300 ${
             isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}>
-            <InfoPopup 
+            {props.selectedObstacle !== null && <InfoPopup 
                 severity={0.2} 
                 selectedObstacle={props.selectedObstacle} 
                 type="keine Ahnung"
                 onClose={handleClose} 
-            /> 
+            /> }
         </div>
     )
 }
