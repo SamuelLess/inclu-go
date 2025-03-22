@@ -5,8 +5,8 @@ import { obstacles } from "../Map/obstacles";
 
 export default function Home() {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[880px] w-[420px]">
+    <div className="flex items-center justify-center h-screen bg-blue-100">
+      <div className="shadow-blue-950x drop-shadow-2xl relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[880px] w-[420px]">
         <div className="h-[32px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -start-[17px] top-[72px] rounded-s-lg"></div>
         <div className="h-[46px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -start-[17px] top-[124px] rounded-s-lg"></div>
         <div className="h-[46px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -start-[17px] top-[178px] rounded-s-lg"></div>

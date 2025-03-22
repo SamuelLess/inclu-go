@@ -1,8 +1,10 @@
 # IncluGO
-Your journey. Your way.
+**Your journey. Your way.**
 
 Whether you use a wheelchair, a prosthetic, have visual impairments, 
 or prefer to avoid crowded spaces — we prioritize accessibility for you.
+
+With our novel machine learning algorithm we can present you with your own unique route planning you deserve.
 
 ## What we offer already
 - Personalised route planning that helps you avoid inconvenient obstacles
@@ -12,4 +14,7 @@ or prefer to avoid crowded spaces — we prioritize accessibility for you.
 ## What we plan to implement
 - Adding obstacles with a personalised barrier severity
 - A profile and settings tab
-- A seperate webinterface for public facilities to see which obstacles have the highest overall barrier severity and should be fixed 
+- A funding feature to get rid of the obstacles in the future
+- A seperate webinterface for public facilities to see which obstacles have the highest overall barrier severity and should be fixed as soon as possible
+
+![Adding Pictures](public/pictures/adding.png)

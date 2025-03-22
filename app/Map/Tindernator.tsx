@@ -75,10 +75,10 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
         }
 
         const moveOutWidth = document.body.clientWidth;
-        const keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
+        const keep = (Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5);
 
         event.target.classList.add('removed');
-        setResponses(responses.concat(keep))
+        setResponses(responses.concat(!keep))
 
         if (keep) {
           event.target.style.transform = '';
@@ -161,7 +161,7 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
 
         <div className="tinder--cards">
           {cards.map((card) => (
-            <img id={card.id} src={card?.content} key={card.id} className="tinder--card rounded-2xl" draggable="false" />
+            <img id={card.id} src={card?.content} key={card.id} className="tinder--card rounded-2xl inset-shadow" draggable="false" />
           ))}
         </div>
 
@@ -169,19 +169,19 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
             <GlobalContext.Consumer>
               {(ctx) => (
               <div className="tinder--buttons">
-                <button
-                  ref={nopeRef}
-                  id="nope"
-                  onClick={createButtonListener(false, ctx)}
-                >
-                  <X size={32} weight="bold" />
-                </button>
+                  <button
+                    ref={nopeRef}
+                    id="nope"
+                    onClick={createButtonListener(false, ctx)}
+                  >
+                    <X size={32} weight="bold" />
+                  </button>
                 <button
                   ref={loveRef}
                   id="love"
-                  onClick={createButtonListener(true, ctx)}
-                >
+                  onClick={createButtonListener(true, ctx)} >
                   <Check size={32} weight="bold" />
+                  {/*<label className='mt-10 text-primary'>Obstacle?</label>*/}
                 </button>
               </div>
               )}
