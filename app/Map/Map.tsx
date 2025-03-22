@@ -28,6 +28,8 @@ export default function Map() {
   const [clickedPosition, setClickedPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [destination, setDestination] = useState("Haus L");
   const [start, setStart] = useState("Haus 1");
+  const [startCoord, setStartCoord] = useState<LatLngExpression[]>([0,0]);
+  const [destCoord, setDestCoord] = useState<LatLngExpression[]>([0,0]);
   const [coordinates, setCoordinates] = useState<LatLngExpression[]>([]);
 
   const destinationRef = React.useRef<HTMLInputElement | null>(null);
@@ -54,8 +56,15 @@ export default function Map() {
   useEffect(() => {
     const fetchRoute = async() => {
       try {
-        const polygons = OBSTACLES.obstacles.map(obs => obs["coords"].map());
-        const route = await getWalkingRoute(START, END, polygons);
+        const flip = (arr:any) => [arr[1],arr[0]];
+        let polygons = OBSTACLES.obstacles.map(obs => ([obs["coords"].map(flip).concat([flip(obs["coords"][0])])]));
+        let startAdr: any, destAdr: any;
+        // try {
+        //   startAdr = await getCoordsFromAdress(start);
+        //   destAdr = await getCoordsFromAdress(destination);
+        // }
+        // catch(error){return;} 
+        const route = await getWalkingRoute(startAdr, destAdr, polygons);
         if(route)setCoordinates(route);
       } catch(error){console.log("Error while fetching");}
     }
@@ -69,8 +78,6 @@ export default function Map() {
         <MapContainer center={HPI_POSITION} zoom={15} scrollWheelZoom={true}
           style={{ height: "100%", width: "100%", borderRadius: 1 }}>
           <TileLayer
-           // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-           // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             url="https://api.maptiler.com/maps/dataviz/{z}/{x}/{y}.png?key=5SQJHNDVIDg6LwTSXS8M"
           />
 
@@ -91,7 +98,7 @@ export default function Map() {
           <Polyline positions={coordinates} color="blue" weight={5} opacity={0.7} />
 
           {OBSTACLES.obstacles.map((obstacle, id) => {
-            return (<Obstacle key={id} obstacle={obstacle} onClick={()=> {
+            return (<Obstacle key={id} obstacleId={id} onClick={()=> {
               console.log("Obstacle clicked");
               setSelectedObstacle(id);
             }}/>)
@@ -112,7 +119,7 @@ export default function Map() {
           }}
         ></div>
       </div>
-      <Overlay selectedObstacle={selectedObstacle}/>
+      <Overlay selectedObstacle={selectedObstacle ?? 0}/>
     </div>
   )
 }

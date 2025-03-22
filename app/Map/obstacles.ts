@@ -1,6 +1,7 @@
 export type ObstacleObject = {
     name: string;
     desc: string;
+    img: string;
     coords: [number, number][];
     type: "stairs" | "path" | "elevator" | "slope";
     features: number[];
@@ -15,8 +16,9 @@ export type ObstacleObject = {
 // Die Hindernisse beim HPI
 export const obstacles : ObstacleObject[] = [
     {
-        "name": "hpiPark",
-        "desc": "",
+        "name": "HPI-Park",
+        "desc": "Desription",
+        "img": '/obstacles/wheelchair.webp',
         "coords": [
             [52.392179, 13.125551],
             [52.392201, 13.125975],
@@ -30,6 +32,8 @@ export const obstacles : ObstacleObject[] = [
     },
     {
         "name": "bahnhofNord",
+        "img": '/obstacles/wheelchair.webp',
+
         "desc": "",
         "coords": [
             [52.394697, 13.127005],
@@ -41,6 +45,8 @@ export const obstacles : ObstacleObject[] = [
         "features": [1, 0.2, 0.3, 0]
     },{
         "name": "hpiWald",
+        "img": '/obstacles/wheelchair.webp',
+
         "desc": "",
         "coords": [
             [52.393494, 13.122922],
@@ -54,6 +60,8 @@ export const obstacles : ObstacleObject[] = [
     },
     {
         "name": "haus1Treppe",
+        "img": '/obstacles/wheelchair.webp',
+
         "desc": "",
         "coords": [
             [52.392834,13.126830],

@@ -1,7 +1,8 @@
 import { Marker, Popup } from 'react-leaflet';
-import type { ObstacleObject } from './obstacles';
+import { obstacles, type ObstacleObject } from './obstacles';
 
 import Leaflet, { type LatLngExpression } from 'leaflet';
+import { GlobalContext } from '~/layouts/home';
 
 
 
@@ -18,18 +19,22 @@ const positionAverage = (positions: number[][]) => {
     const sum = positions.reduce((acc, pos) => {
         return [acc[0] + pos[0], acc[1] + pos[1]];
     }
-    , [0, 0]);
+        , [0, 0]);
     return [sum[0] / positions.length, sum[1] / positions.length];
 };
 
 
-export default function Obstacles(props: { 
-    obstacle: ObstacleObject
+export default function Obstacles(props: {
+    obstacleId: number,
     onClick: () => void
- }) {
+}) {
+
+    console.log('Obstacle', props.obstacleId);
+    const obstacle = obstacles[props.obstacleId];
+    console.log(obstacle);
 
     let icon = '';
-    switch (props.obstacle.type) {
+    switch (obstacle.type) {
         case 'path':
             icon = tree;
             break;
@@ -45,38 +50,41 @@ export default function Obstacles(props: {
     }
 
     let severity = Math.random();
-    let color = '';
-    if (severity < 0.33) {
-        color = green;
-    } else if (severity < 0.66) {
-        color = yellow;
-    } else {
-        color = red;
-    }
 
-
-    //@ts-ignore
-    const factory : any = new L.divIcon({
-        className: '',
-        iconAnchor: [12, 25],
-        popupAnchor: [0, -15],
-        iconSize: [32, 32],
-        html: `<div style="background-color: ${color}; border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${icon}</div>`  });
-
-
-    const position = positionAverage(props.obstacle.coords);
+    const position = positionAverage(obstacle.coords);
     return (
-        <Marker position={position as LatLngExpression}
-                icon={factory}
-                eventHandlers={{
-                    click: (e) => {
-                       props.onClick();
-                    },
-                  }}
-        >
-            <Popup>
-               {props.obstacle.type}
-            </Popup>
-        </Marker>
+        <GlobalContext.Consumer>
+            {(context) => {
+                const severity = context?.severeties[props.obstacleId] || 0;
+
+                let color = '';
+                if (severity < 0.33) {
+                    color = green;
+                } else if (severity < 0.66) {
+                    color = yellow;
+                } else {
+                    color = red;
+                }
+
+                //@ts-ignore
+                const factory: any = new L.divIcon({
+                    className: '',
+                    iconAnchor: [12, 25],
+                    popupAnchor: [0, -15],
+                    iconSize: [32, 32],
+                    html: `<div style="background-color: ${color}; border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${icon}</div>`
+                });
+
+                return (<Marker position={position as LatLngExpression}
+                    icon={factory}
+                    eventHandlers={{
+                        click: (e) => {
+                            props.onClick();
+                        },
+                    }}
+                >
+                </Marker>);
+            }}
+        </GlobalContext.Consumer>
     );
 };
