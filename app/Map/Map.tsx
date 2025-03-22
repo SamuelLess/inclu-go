@@ -44,7 +44,7 @@ export default function Map() {
         //@ts-ignore
         let polygons = OBSTACLES.obstacles.map(obs => ([obs["coords"].map(flip).concat([flip(obs["coords"][0])])]));
         
-        let relevantPolygons = polygons.filter((x, i) => globalContext?.severeties[i]! > 0.7);
+        let relevantPolygons = polygons.filter((x, i) => globalContext?.severeties[i]! >= 0.7);
         
         //@ts-ignore
         const route = await getWalkingRoute(coordinates[0], coordinates[1], relevantPolygons);
@@ -97,10 +97,15 @@ export default function Map() {
 
           <Polyline positions={route} color="blue" weight={5} opacity={0.7} />
 
-          {OBSTACLES.obstacles.map((obstacle, id) => {
+          {OBSTACLES.obstacles.map((_obstacle, id) => {
             return (<Obstacle key={id} obstacleId={id} onClick={()=> {
               setSelectedObstacle(id);
             }}/>)
+          })};
+          {OBSTACLES.obstacles.filter((x,i) => globalContext?.severeties[i]! >= 0.7).map((obstacle, id) => {
+            return (
+              <Polygon key={id} pathOptions={{ color: 'red', stroke: false }} positions={obstacle["coords"]} />
+            );
           })};
         </MapContainer>
       </div>

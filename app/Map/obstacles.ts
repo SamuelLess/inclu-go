@@ -82,18 +82,44 @@ export const obstacles : ObstacleObject[] = [
         ],
         "type": "stairs",
         "features": [1, 0.2, 0.1, 0.5]
-    },{//alles neu austauschen
+    },
+
+    
+    {//kleine Baustelle nahe der Bushaltestelle
+        "name": "Flatterband",
+        "img": '/obstacles/wheelchair.webp',
+        "desc": "",
+        "coords": [
+            [52.393882,13.128509],
+            [52.393877,13.128633],
+            [52.393825,13.128635],
+            [52.393823,13.128533]
+        ],
+        "type": "path",
+        "features": [0, 0, 0, 1]
+    },
+    {
         "name": "",
         "img": '/obstacles/wheelchair.webp',
         "desc": "",
         "coords": [
-            [52.392637,13.124813],
-            [52.392635,13.124958],
-            [52.393740,13.127699],
-            [52.393745,13.127305]
+            [],
+            [],
+            [],
         ],
         "type": "stairs",
-        "features": [1, 0.2, 0.1, 0.5]
+        "features": [0, 0, 0, 0]
     },
-
+    {
+        "name": "",
+        "img": '/obstacles/wheelchair.webp',
+        "desc": "",
+        "coords": [
+            [],
+            [],
+            [],
+        ],
+        "type": "stairs",
+        "features": [0, 0, 0, 0]
+    },
 ];
