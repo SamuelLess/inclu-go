@@ -6,6 +6,8 @@ import { X, Check } from '@phosphor-icons/react';
 import { NavLink } from "react-router";
 import { Button } from '~/components/ui/button';
 
+import { GlobalContext } from '../Map/Globalstate';
+
 interface Card {
   id: Number;
   content: String;
@@ -162,9 +164,14 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
             <h1 className='text-3xl font-extrabold mb-4'>All done!</h1>
             <p className='mb-[40px]'> We've got enough information to get you started. 
               As you use the app, our pathfinding will improve further. </p>
-            <center><NavLink to="/map" className={'w-full'}>
-              <Button>Start exploring</Button>
-            </NavLink></center>
+            <center>
+
+            <GlobalContext.Consumer>
+              {(context) => (
+                <Button onClick={context?.setOnMap(true)}>Start exploring</Button>
+              )}
+            </GlobalContext.Consumer>
+              </center>
           </>
         )}
       </div>

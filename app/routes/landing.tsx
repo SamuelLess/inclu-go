@@ -26,7 +26,7 @@ export default function Landing() {
           size="lg" 
           className="w-full max-w-[200px]"
         >
-          <NavLink to="/swipe">Continue</NavLink>
+          <NavLink to="/map">Continue</NavLink>
         </Button>
       </div>
     </div>

@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "~/components/ui/card";
 import { Slider } from "~/components/ui/slider";
-import { GlobalContext } from "~/layouts/home";
-
+import { GlobalContext } from "~/Map/Globalstate";
 import { obstacles } from "~/Map/obstacles";
 
 const OBSTACLES = {
@@ -126,10 +125,9 @@ const ObstacleCard = (props: {
             {(context) => {
               const severity = context?.severeties[props.selectedObstacle] || 0;
               console.log("severity", severity);
-              return <Slider defaultValue={[severity]} onValueChange={(newValue) => {
-                console.log('newValue', newValue, context);
+              return <Slider value={[severity]} onValueChange={(newValue) => {
                 
-                context?.setSevereties((oldSeverities) => {
+                context?.setSevereties((oldSeverities : number[]) => {
                   const newSeverities = [...oldSeverities];
                   console.log('newSeverities', newSeverities);
                   newSeverities[props.selectedObstacle] = newValue[0]/100;

@@ -1,6 +1,7 @@
 import Map from "~/Map/Map";
 import {Tindernator} from "~/Map/Tindernator"
 import type {Route} from "./+types/home";
+import {GlobalState} from "../Map/Globalstate";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -9,7 +10,5 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 export default function Home() {
-  return (<div className="h-full flex-column">
-        <Map />
-    </div>);
+  return (<GlobalState />);
 }

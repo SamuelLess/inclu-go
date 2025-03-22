@@ -18,11 +18,13 @@ const ClickableMap = ({ onClick }: { onClick: (latlng: { lat: number; lng: numbe
   return null;
 };
 
+const flip = (arr:LatLngExpression[]) => [arr[1],arr[0]];
+
 export default function Map() {
   const [clickedPosition, setClickedPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [destination, setDestination] = useState("Haus L");
   const [start, setStart] = useState("Haus 1");
-  const [coordinates, setCoordinates] = useState<LatLngExpression[]>([[0,0],[0,0]]);
+  const [coordinates, setCoordinates] = useState(); 
   const [route, setRoute] = useState<LatLngExpression[]>([]);
 
   const destinationRef = React.useRef<HTMLInputElement | null>(null);
@@ -35,8 +37,9 @@ export default function Map() {
   useEffect(() => {
     const fetchRoute = async() => {
       try {
-        const flip = (arr:any) => [arr[1],arr[0]];
+        //@ts-ignore
         let polygons = OBSTACLES.obstacles.map(obs => ([obs["coords"].map(flip).concat([flip(obs["coords"][0])])]));
+        //@ts-ignore
         const route = await getWalkingRoute(coordinates[0], coordinates[1], polygons);
         if(route)setRoute(route);
       } catch(error){console.log("Error while fetching");}
@@ -51,8 +54,9 @@ export default function Map() {
         startAdr = await getCoordsFromAdress(start);
         destAdr = await getCoordsFromAdress(destination);
       }
-      catch(error){return;} 
-      setCoordinates([startAdr, destAdr]);
+      catch(error){return;}
+      //@ts-ignore 
+      setCoordinates([flip(startAdr), flip(destAdr)]);
     }
     fetchCoords();
   };
