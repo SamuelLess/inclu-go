@@ -41,8 +41,6 @@ export const obstacles : ObstacleObject[] = [
         "type": "stairs",
         "features": [1, 0.2, 0.1, 0.5]
     },
-
-
     {//Flatterband nahe der Bushaltestelle
         "name": "Flatterband",
         "img": '/pictures/kleineBaustelle.webp',
@@ -120,5 +118,18 @@ export const obstacles : ObstacleObject[] = [
         ],
         "type": "elevator",
         "features": [0, 0, 0.3, 0]
+    },
+    {// große Baustelle 
+        "name": "Baustelle",
+        "img": '/pictures/grosseBaustelle.webp',
+        "desc": "",
+        "coords": [
+            [52.392807,13.125441],
+            [52.392823,13.126294],
+            [52.392740,13.126262],
+            [52.392727,13.125441]
+        ],
+        "type": "path",
+        "features": [0.2, 0, 0.1, 0.9]
     },
 ];

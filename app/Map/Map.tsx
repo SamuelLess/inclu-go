@@ -9,6 +9,7 @@ import { Overlay } from './Overlay';
 import * as OBSTACLES from './obstacles';
 import Obstacle from './Obstacle';
 import { GlobalContext } from './Globalstate';
+import { UserCircle } from '@phosphor-icons/react';
 import { Loader2 } from 'lucide-react';
 
 const ClickableMap = ({ onClick }: { onClick: (latlng: { lat: number; lng: number }) => void }) => {
@@ -41,14 +42,14 @@ const PIN: any = new L.divIcon({
   html: `<div style="border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${startPin}</div>`
 });
 
-const flip = (arr:LatLngExpression[]) => [arr[1],arr[0]];
+const flip = (arr: LatLngExpression[]) => [arr[1], arr[0]];
 
 export default function Map() {
   const [clickedPosition, setClickedPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [loading, setLoading] = useState(false);
-  const [destination, setDestination] = useState("Haus L");
-  const [start, setStart] = useState("Haus 1");
-  const [coordinates, setCoordinates] = useState<LatLngExpression[]>([[0,0],[0,0]]); 
+  const [destination, setDestination] = useState("Potsdam HPI");
+  const [start, setStart] = useState("Babelsberg");
+  const [coordinates, setCoordinates] = useState<LatLngExpression[]>([[0, 0], [0, 0]]);
   const [route, setRoute] = useState<LatLngExpression[]>([]);
   const [adressInputErr, setInputErr] = useState(0);
 
@@ -61,41 +62,45 @@ export default function Map() {
   const [selectedObstacle, setSelectedObstacle] = useState<number | null>(null);
 
   useEffect(() => {
-    const fetchRoute = async() => {
+    const fetchRoute = async () => {
       try {
         //@ts-ignore
         let polygons = OBSTACLES.obstacles.map(obs => ([obs["coords"].map(flip).concat([flip(obs["coords"][0])])]));
-        
+
         let relevantPolygons = polygons.filter((x, i) => globalContext?.severeties[i]! >= 0.7);
-        
+
         //@ts-ignore
         const route = await getWalkingRoute(coordinates[0], coordinates[1], relevantPolygons);
-        if(route)setRoute(route);
-        else{throw new Error("no route");}
-      } catch(error){setInputErr(3);return;}
+        if (route) setRoute(route);
+        else { throw new Error("no route"); }
+      } catch (error) { console.log("txt"); setInputErr(3); return; }
     }
-    const timeout = setTimeout(() => setLoading(true),200);
+    const timeout = setTimeout(() => setLoading(true), 200);
+    try {
       fetchRoute().then(() => {
         clearTimeout(timeout);
         setLoading(false);
-    });
+      });
+    } catch (err) { 
+      console.log("txt"); setInputErr(3); return;
+    }
     return () => clearTimeout(timeout);
   }, [coordinates, globalContext?.severeties]);
 
   const updateCoords = () => {
-    const fetchCoords = async() => {
+    const fetchCoords = async () => {
       let startAdr: any, destAdr: any;
       setInputErr(0);
       try {
         startAdr = await getCoordsFromAdress(start);
-        if(!startAdr)throw new Error("not found");
+        if (!startAdr) throw new Error("not found");
       }
-      catch(error){setInputErr(1);return;}
+      catch (error) { setInputErr(1); return; }
       try {
         destAdr = await getCoordsFromAdress(destination);
-        if(!destAdr)throw new Error("not found");
+        if (!destAdr) throw new Error("not found");
       }
-      catch(error){setInputErr(2);return;}
+      catch (error) { setInputErr(2); return; }
       //@ts-ignore 
       setCoordinates([flip(startAdr), flip(destAdr)]);
     }
@@ -127,9 +132,9 @@ export default function Map() {
           <Polyline positions={route} color="blue" weight={5} opacity={0.7} />
 
           {OBSTACLES.obstacles.map((_obstacle, id) => {
-            return (<Obstacle key={id} obstacleId={id} onClick={()=> {
+            return (<Obstacle key={id} obstacleId={id} onClick={() => {
               setSelectedObstacle(id);
-            }}/>)
+            }} />)
           })};
           {OBSTACLES.obstacles.filter((x, i) => globalContext?.severeties[i]! >= 0.7).map((obstacle, id) => {
             return (
@@ -143,10 +148,10 @@ export default function Map() {
       </div>
 
       <div className='absolute top-0 left-0 w-full z-1000'>
-        <InputRoute 
+        <InputRoute
           dest={destination} setDest={setDestination} destRef={destinationRef}
           start={start} setStart={setStart} startRef={startRef} update={updateCoords}
-          error = {adressInputErr}
+          error={adressInputErr}
         />
         <div className="w-full h-2 bg-white"></div>
         <div
@@ -157,14 +162,14 @@ export default function Map() {
         ></div>
       </div>
       {loading ?
-      <div className='absolute top-64 left-0 w-full z-2000 pointer-events-none'>
-        <div className="transition-all w-full pt-20 h-48 grid justify-center justify-items-center">
-          <Loader2 size={64} className='animate-spin text-gray-700'/>
-        </div>
-      </div> : null}
-      <Overlay selectedObstacle={selectedObstacle} onClose={() => setSelectedObstacle(null)}/>
-      <div className='absolute top-[20%] left-0 w-[32] h-32 bg-black rounded-r-xl z-1000'>
-        sadfj
+        <div className='absolute top-64 left-0 w-full z-2000 pointer-events-none'>
+          <div className="transition-all w-full pt-20 h-48 grid justify-center justify-items-center">
+            <Loader2 size={64} className='animate-spin text-gray-700' />
+          </div>
+        </div> : null}
+      <Overlay selectedObstacle={selectedObstacle} onClose={() => setSelectedObstacle(null)} />
+      <div className='absolute top-[20%] left-0 w-[32] bg-black rounded-r-xl z-1000'>
+        <UserCircle size={32} co />
       </div>
     </div>
   )
