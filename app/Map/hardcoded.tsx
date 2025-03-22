@@ -38,7 +38,7 @@ const haus1Treppe: LatLngExpression[] = [
     [52.392800,13.127093],
 ]
 
-export const obstacles: LatLngExpression[][] = [hpiPark, hpiWald, bahnhofNord]
+export const obstacles: LatLngExpression[][] = [hpiPark, hpiWald, bahnhofNord, haus1Treppe]
 
 export const START:LatLngExpression = [52.391601, 13.123174];
 export const END:LatLngExpression = [52.393637, 13.122751];

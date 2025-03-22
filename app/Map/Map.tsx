@@ -3,15 +3,15 @@ import type { LatLngExpression } from 'leaflet';
 import { obstacles, HPI_POSITION, hpiBuilding, START, END } from './hardcoded';
 import { getWalkingRoute, getCoordsFromAdress } from "./routing";
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { InputRoute } from './InputRoute';
 import { Overlay } from './Overlay';
 import * as OBSTACLES from './obstacles';
 import Obstacle from './Obstacle';
 
 //const [destination, setDestination] = React.useState("Hallo");
-const route = getWalkingRoute(START, END, OBSTACLES);
-console.log(route);
+// const route = getWalkingRoute(START, END, OBSTACLES);
+// console.log(route);
 const adress = getCoordsFromAdress("Hasso-Plattner-Institut Potsdam");
 console.log(adress);
 
@@ -28,26 +28,35 @@ export default function Map() {
   const [clickedPosition, setClickedPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [destination, setDestination] = useState("Haus L");
   const [start, setStart] = useState("Haus 1");
+  const [coordinates, setCoordinates] = useState<LatLngExpression[]>([]);
 
   const destinationRef = React.useRef<HTMLInputElement | null>(null);
   const startRef = React.useRef<HTMLInputElement | null>(null);
   const [previousActiveRef, setPreviousActiveRef] = useState<HTMLInputElement | null>(null);
 
-  React.useEffect(() => {
-    const handleFocus = (_: any) => {
-      if (document.activeElement instanceof HTMLInputElement) {
-        setPreviousActiveRef(document.activeElement);
-      }
-    };
+  // useEffect(() => {
+  //   const handleFocus = (_: any) => {
+  //     if (document.activeElement instanceof HTMLInputElement) {
+  //       setPreviousActiveRef(document.activeElement);
+  //     }
+  //   };
 
-    document.addEventListener('focusin', handleFocus);
+  //   document.addEventListener('focusin', handleFocus);
 
-    return () => {
-      document.removeEventListener('focusin', handleFocus);
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener('focusin', handleFocus);
+  //   };
+  // }, []);
 
-    const route = getWalkingRoute(START, END, OBSTACLES);
+  useEffect(() => {
+    const fetchRoute = async() => {
+      try {
+        const route = await getWalkingRoute(START, END, OBSTACLES);
+        if(route)setCoordinates(route);
+      } catch(error){console.log("Error while fetching");}
+    }
+    fetchRoute();
+  }, [start, destination]);
 
   return (
     <div className="h-full w-full relative">
@@ -75,7 +84,7 @@ export default function Map() {
             }
           }} />
 
-          <Polyline positions={route} color="blue" weight={5} opacity={0.7} />
+          <Polyline positions={coordinates} color="blue" weight={5} opacity={0.7} />
 
           {OBSTACLES.obstacles.map((obstacle, id) => {
             return (<Obstacle key={id} obstacle={obstacle} />)

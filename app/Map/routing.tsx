@@ -1,7 +1,7 @@
 import type { LatLngExpression } from 'leaflet';
 
 export const getCoordsFromAdress = async (description: string) => {
-  const BASE_URL = "https://nominatim.openstreetmap.org/search";
+  const BASE_URL = "http://localhost:8115/search";
   
   const response = fetch(BASE_URL, {
     method: "POST",
@@ -11,10 +11,11 @@ export const getCoordsFromAdress = async (description: string) => {
     }),
   });
   const data = response.then(r => r.json())
-
+  console.log(data);
   const midpoint = (arr: number[]) => [(arr[1]+arr[3])/2, (arr[0]+arr[2])/2];
 
   return data.then((d : any) => {
+    console.log(d)
     console.log(midpoint(d["bbox"]));
     return midpoint(d["bbox"]);
   }).catch(e => {
@@ -69,6 +70,12 @@ export const getWalkingRoute = async (start: LatLngExpression, end: LatLngExpres
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         coordinates: [fixShitApi(start), fixShitApi(end)],
+        options: {
+          avoid_polygons: {
+            type: "MultiPolygon",
+            coordinates: avoidPolygon
+          }
+        }
       }),
     });
     const data = response.then(r => r.json())

@@ -69,15 +69,16 @@ const ObstacleCard = ({ type = "beach" }) => {
   const [severity, setSeverity] = useState(obstacle.severity);
 
   return (
-    <Card className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-      <div className="relative w-full h-48">
+    <Card className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden pt-0">
+      <div className="relative w-full h-32">
+        <div className="absolute bg-black opacity-50 w-[70px] h-[5px] rounded left-1/2 -translate-x-1/2 top-2" />
         <img 
           src={obstacle.img} 
           alt={obstacle.description} 
           className="w-full h-full object-cover"
         />
       </div>
-      <CardContent className="p-4">
+      <CardContent className="p-4 pt-0">
         <h2 className="text-lg font-bold">{obstacle.description}</h2>
         <p className="text-gray-500">{obstacle.status || 'No status available'}</p>
         {obstacle.about && (

@@ -5,6 +5,12 @@ services:
       dockerfile: node.Dockerfile
     ports:
       - "${PORT}:8080"
+  python:
+    build: 
+      context: ./backend
+      dockerfile: python.Dockerfile
+    ports:
+      - "8115:8000"
   ors-app:
     # Activate the following lines to build the container from the repository
     # You have to add --build to the docker compose command to do so

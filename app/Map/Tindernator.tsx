@@ -1,22 +1,21 @@
 // @ts-nocheck
 import React, { useState, useEffect, useRef } from 'react';
 import Hammer from 'hammerjs';
-import './stylonator.css'; 
+import './stylonator.css';
 
-export function Tindernator() {
-  const [cards, setCards] = useState([
-    { id: 1, content: 'Card 1' },
-    { id: 2, content: 'Card 2' },
-    { id: 3, content: 'Card 3' },
-    { id: 4, content: 'Card 4' },
-    { id: 5, content: 'Card 5' },
-    { id: 6, content: 'Card 6' },
+interface Card {
+  id: Number;
+  content: String;
+}
 
-  ]);
+export function Tindernator(props: { cards: (Card | undefined)[] }) {
+  const cards = props.cards;
 
   const tinderContainerRef = useRef(null);
   const nopeRef = useRef(null);
   const loveRef = useRef(null);
+  const [responses, setResponses] = useState<bool[]>([])
+
 
   useEffect(() => {
     const initCards = () => {
@@ -28,8 +27,6 @@ export function Tindernator() {
 
       newCards.forEach((card, index) => {
         card.style.zIndex = cards.length - index;
-        card.style.transform = `scale(${(20 - index) / 20}) translateY(-${30 * index}px)`;
-        card.style.opacity = (10 - index) / 10;
       });
     };
 
@@ -76,7 +73,9 @@ export function Tindernator() {
         const moveOutWidth = document.body.clientWidth;
         const keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
 
-        event.target.classList.toggle('removed', !keep);
+        event.target.classList.add('removed');
+
+        setResponses(responses + [keep])
 
         if (keep) {
           event.target.style.transform = '';
@@ -89,14 +88,13 @@ export function Tindernator() {
           const yMulti = event.deltaY / 80;
           const rotate = xMulti * yMulti;
 
-          event.target.style.transform = `translate(${toX}px, ${
-            toY + event.deltaY
-          }px) rotate(${rotate}deg)`;
+          event.target.style.transform = `translate(${toX}px, ${toY + event.deltaY
+            }px) rotate(${rotate}deg)`;
           initCards();
         }
       });
     });
-  }, [cards]);
+  }, []);
 
   const createButtonListener = (love) => (event) => {
     const allCards = document.querySelectorAll('.tinder--card:not(.removed)');
@@ -105,11 +103,9 @@ export function Tindernator() {
     if (!allCards.length) return false;
 
     const card = allCards[0];
-
+    setResponses(responses + [love])
     card.classList.add('removed');
-    document.querySelectorAll('.tinder--card:not(.removed)').forEach(element => {
-      element.classList.toggle("updater")
-    });
+    document.querySelectorAll('.tinder--card:not(.removed)')[0].classList.add(".loaded")
     if (love) {
       card.style.transform = `translate(${moveOutWidth}px, -100px) rotate(-30deg)`;
     } else {
@@ -125,24 +121,22 @@ export function Tindernator() {
     <div className="tinder flex-column" ref={tinderContainerRef}>
       <div className="tinder--cards">
         {cards.map((card) => (
-          <div key={card.id} className="tinder--card updater">
-            {card.content}
-          </div>
+            <img src={card?.content} key={card.id}  className="tinder--card" draggable="false" />
         ))}
       </div>
 
       <div className="tinder--buttons">
-        <button 
-        ref={nopeRef} 
-        id="nope"
-        onClick={
-          createButtonListener(false)
-        }
+        <button
+          ref={nopeRef}
+          id="nope"
+          onClick={
+            createButtonListener(false)
+          }
         >
           No
         </button>
-        <button 
-          ref={loveRef} 
+        <button
+          ref={loveRef}
           id="love"
           onClick={
             createButtonListener(true)
@@ -151,6 +145,8 @@ export function Tindernator() {
           Slay queen
         </button>
       </div>
+
+      <span>{responses.map(e => (<span>{e}</span>))}</span>
     </div>
   );
 }
