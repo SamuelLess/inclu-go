@@ -30,7 +30,8 @@ export default function Swipe() {
     ]
 
     return (
-        <div className="flex h-full w-full flex-col align-cen bg-background">
+        <div className="flex h-full w-full flex-col align-middle">
+            <div>
             <div className="flex w-full flex-col ">
                 <img
                     src="/IncluGO.svg"
@@ -39,13 +40,16 @@ export default function Swipe() {
                 />
 
                 <p className="mb-8">
-                    Your journey, your way.
+                Swipe through obstacles, tell us what matters, 
+                and let our smart system guide you on the smoothest path.
 
-                    Whether you use a wheelchair, a prosthetic, have visual impairments,
-                    or prefer to avoid crowded spaces — we prioritize accessibility for you.
+                Ready to move freely?
                 </p>
             </div>
-            <Tindernator cards={carrrgds} />
+            <div>
+                <Tindernator cards={carrrgds} />
+            </div>
+            </div>
         </div>
     );
 }

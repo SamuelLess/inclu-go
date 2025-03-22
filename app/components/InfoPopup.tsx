@@ -73,7 +73,6 @@ const ObstacleCard = (props: {
   onClose?: () => void
 }) => {
 
-  console.log('props', props);
   // @ts-ignore
   const obstacle = OBSTACLES[props.type] || OBSTACLES.beach;
   const [severity, setSeverity] = useState(obstacle.severity);
@@ -98,10 +97,10 @@ const ObstacleCard = (props: {
 
   return (
     <Card className={`max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden pt-0 transition-all duration-300 ${
-      isClosing ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'
+      isClosing ? 'translate-y-full opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'
     }`}>
       <div className="relative w-full h-32">
-        <div 
+        <div
           className="absolute bg-black opacity-50 w-[70px] h-[5px] rounded left-1/2 -translate-x-1/2 top-2 cursor-pointer hover:opacity-70 transition-opacity"
           onClick={handleClose}
           title="Close popup"
@@ -125,6 +124,8 @@ const ObstacleCard = (props: {
           <h3 className="text-sm font-semibold text-gray-600 mb-2">BARRIER SEVERITY</h3>
           <GlobalContext.Consumer>
             {(context) => {
+              console.log("props2", props.selectedObstacle);
+              console.log("context", context);
               const severity = context?.severeties[props.selectedObstacle] || 0;
               return <Slider defaultValue={[severity]} onValueChange={(newValue) => {
                 context?.setSevereties((oldSeverities) => {

@@ -28,9 +28,8 @@ export default function Map() {
   const [clickedPosition, setClickedPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [destination, setDestination] = useState("Haus L");
   const [start, setStart] = useState("Haus 1");
-  const [startCoord, setStartCoord] = useState<LatLngExpression[]>([0,0]);
-  const [destCoord, setDestCoord] = useState<LatLngExpression[]>([0,0]);
-  const [coordinates, setCoordinates] = useState<LatLngExpression[]>([]);
+  const [coordinates, setCoordinates] = useState<LatLngExpression[]>([[0,0],[0,0]]);
+  const [route, setRoute] = useState<LatLngExpression[]>([]);
 
   const destinationRef = React.useRef<HTMLInputElement | null>(null);
   const startRef = React.useRef<HTMLInputElement | null>(null);
@@ -65,11 +64,13 @@ export default function Map() {
         // }
         // catch(error){return;} 
         const route = await getWalkingRoute(startAdr, destAdr, polygons);
-        if(route)setCoordinates(route);
+        if(route)setRoute(route);
       } catch(error){console.log("Error while fetching");}
     }
     fetchRoute();
   }, [start, destination]);
+
+  const updateCoords = () => {};
 
   return (
     <div className="h-full w-full relative">
@@ -95,7 +96,7 @@ export default function Map() {
             }
           }} />
 
-          <Polyline positions={coordinates} color="blue" weight={5} opacity={0.7} />
+          <Polyline positions={route} color="blue" weight={5} opacity={0.7} />
 
           {OBSTACLES.obstacles.map((obstacle, id) => {
             return (<Obstacle key={id} obstacleId={id} onClick={()=> {
@@ -109,7 +110,7 @@ export default function Map() {
       <div className='absolute top-0 left-0 w-full z-1000'>
         <InputRoute
           dest={destination} setDest={setDestination} destRef={destinationRef}
-          start={start} setStart={setStart} startRef={startRef}
+          start={start} setStart={setStart} startRef={startRef} update={updateCoords}
         />
         <div className="w-full h-2 bg-white"></div>
         <div
