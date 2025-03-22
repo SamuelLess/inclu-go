@@ -145,6 +145,6 @@ export const obstacles : ObstacleObject[] = [
             [52.394028,13.127297]
         ],
         "type": "path",
-        "features": [0, 0, 0.1, 0.9]
+        "features": [0, 0, 0, 0.9]
     },
 ];

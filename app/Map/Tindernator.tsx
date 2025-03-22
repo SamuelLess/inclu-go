@@ -160,9 +160,9 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
         </p>)}
       <div className="tinder flex-column" ref={tinderContainerRef}>
 
-        <div className="tinder--cards">
+        <div className="tinder--cards inset-shadow-2xl shadow-black">
           {cards.map((card) => (
-            <img id={card.id} src={card?.content} key={card.id} className="tinder--card rounded-2xl inset-shadow-sm shadow-gray-800" draggable="false" />
+            <img id={card.id} src={card?.content} key={card.id} className="tinder--card rounded-2xl" draggable="false" />
           ))}
         </div>
 
