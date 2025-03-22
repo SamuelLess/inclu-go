@@ -1,7 +1,7 @@
 export type ObstacleObject = {
     name: string;
     desc: string;
-    coords: [number, number][]
+    coords: [number, number][];
     type: "stairs" | "path" | "elevator" | "slope";
     features: number[];
 };
@@ -56,11 +56,10 @@ export const obstacles : ObstacleObject[] = [
         "name": "haus1Treppe",
         "desc": "",
         "coords": [
-            [52.393494, 13.122922],
-            [52.393625, 13.124151],
-            [52.393776, 13.126672],
-            [52.392922, 13.126339],
-            [52.392817, 13.123051]
+            [52.392834,13.126830],
+            [52.392800,13.127093],
+            [52.392650,13.127055],
+            [52.392681,13.126787]
         ],
         "type": "stairs",
         "features": [1, 0.2, 0.3, 0]

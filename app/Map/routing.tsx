@@ -1,23 +1,20 @@
 import type { LatLngExpression } from 'leaflet';
 
 export const getCoordsFromAdress = async (description: string) => {
-  const BASE_URL = "http://localhost:8115/search";
+  const BASE_URL = `http://localhost:8115/${encodeURIComponent(description)}`;
   
   const response = fetch(BASE_URL, {
-    method: "POST",
+    method: "GET",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      q: encodeURIComponent(description),
-    }),
   });
   const data = response.then(r => r.json())
-  console.log(data);
   const midpoint = (arr: number[]) => [(arr[1]+arr[3])/2, (arr[0]+arr[2])/2];
 
   return data.then((d : any) => {
-    console.log(d)
-    console.log(midpoint(d["bbox"]));
-    return midpoint(d["bbox"]);
+    const jsonData = JSON.parse(d);
+    console.log(jsonData);
+    console.log(jsonData["features"][0]["geometry"]["coordinates"])
+    return jsonData["features"][0]["geometry"]["coordinates"];
   }).catch(e => {
     console.error(e);
   })

@@ -34,6 +34,9 @@ export default function Map() {
   const startRef = React.useRef<HTMLInputElement | null>(null);
   const [previousActiveRef, setPreviousActiveRef] = useState<HTMLInputElement | null>(null);
 
+
+  const [selectedObstacle, setSelectedObstacle] = useState<number | null>(null);
+
   // useEffect(() => {
   //   const handleFocus = (_: any) => {
   //     if (document.activeElement instanceof HTMLInputElement) {
@@ -51,7 +54,8 @@ export default function Map() {
   useEffect(() => {
     const fetchRoute = async() => {
       try {
-        const route = await getWalkingRoute(START, END, OBSTACLES);
+        const polygons = OBSTACLES.obstacles.map(obs => obs["coords"].map());
+        const route = await getWalkingRoute(START, END, polygons);
         if(route)setCoordinates(route);
       } catch(error){console.log("Error while fetching");}
     }
@@ -87,7 +91,10 @@ export default function Map() {
           <Polyline positions={coordinates} color="blue" weight={5} opacity={0.7} />
 
           {OBSTACLES.obstacles.map((obstacle, id) => {
-            return (<Obstacle key={id} obstacle={obstacle} />)
+            return (<Obstacle key={id} obstacle={obstacle} onClick={()=> {
+              console.log("Obstacle clicked");
+              setSelectedObstacle(id);
+            }}/>)
           })};
         </MapContainer>
       </div>
@@ -105,7 +112,7 @@ export default function Map() {
           }}
         ></div>
       </div>
-      <Overlay />
+      <Overlay selectedObstacle={selectedObstacle}/>
     </div>
   )
 }

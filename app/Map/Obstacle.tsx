@@ -1,7 +1,7 @@
 import { Marker, Popup } from 'react-leaflet';
 import type { ObstacleObject } from './obstacles';
 
-import Leaflet from 'leaflet';
+import Leaflet, { type LatLngExpression } from 'leaflet';
 
 
 
@@ -14,7 +14,19 @@ const green = "#29DD29";
 const red = "#CC3535";
 const yellow = "#EED514";
 
-export default function Obstacles(props: { obstacle: ObstacleObject }) {
+const positionAverage = (positions: number[][]) => {
+    const sum = positions.reduce((acc, pos) => {
+        return [acc[0] + pos[0], acc[1] + pos[1]];
+    }
+    , [0, 0]);
+    return [sum[0] / positions.length, sum[1] / positions.length];
+};
+
+
+export default function Obstacles(props: { 
+    obstacle: ObstacleObject
+    onClick: () => void
+ }) {
 
     let icon = '';
     switch (props.obstacle.type) {
@@ -51,9 +63,16 @@ export default function Obstacles(props: { obstacle: ObstacleObject }) {
         iconSize: [32, 32],
         html: `<div style="background-color: ${color}; border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${icon}</div>`  });
 
+
+    const position = positionAverage(props.obstacle.coords);
     return (
-        <Marker position={[props.obstacle.lat, props.obstacle.lon]}
+        <Marker position={position as LatLngExpression}
                 icon={factory}
+                eventHandlers={{
+                    click: (e) => {
+                       props.onClick();
+                    },
+                  }}
         >
             <Popup>
                {props.obstacle.type}

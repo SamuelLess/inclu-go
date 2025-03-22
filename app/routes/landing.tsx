@@ -8,9 +8,9 @@ export default function Landing() {
       <div className="flex max-w-md flex-col items-center text-center">
         {/* Logo - assuming there's a logo file, adjust path as needed */}
         <img 
-          src="/favicon.png" 
+          src="/IncluGO.svg" 
           alt="Logo" 
-          className="mb-6 h-24 w-auto"
+          className="mb-6 h-24 w-auto max-w-[212px]"
         />
 
         

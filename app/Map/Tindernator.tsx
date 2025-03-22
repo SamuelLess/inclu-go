@@ -75,7 +75,7 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
 
         event.target.classList.add('removed');
 
-        setResponses(responses + [keep])
+        setResponses(responses.concat(keep))
 
         if (keep) {
           event.target.style.transform = '';
@@ -103,7 +103,7 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
     if (!allCards.length) return false;
 
     const card = allCards[0];
-    setResponses(responses + [love])
+    setResponses(responses.concat(love))
     card.classList.add('removed');
     document.querySelectorAll('.tinder--card:not(.removed)')[0].classList.add(".loaded")
     if (love) {
@@ -145,8 +145,9 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
           Slay queen
         </button>
       </div>
-
-      <span>{responses.map(e => (<span>{e}</span>))}</span>
+        {responses.map((response) => (
+            <div>{response}</div>
+        ))}
     </div>
   );
 }

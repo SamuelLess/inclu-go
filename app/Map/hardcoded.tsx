@@ -36,6 +36,8 @@ const hpiWald: LatLngExpression[] = [
 const haus1Treppe: LatLngExpression[] = [
     [52.392834,13.126830],
     [52.392800,13.127093],
+    [52.392650,13.127055],
+    [52.392681,13.126787]
 ]
 
 export const obstacles: LatLngExpression[][] = [hpiPark, hpiWald, bahnhofNord, haus1Treppe]
