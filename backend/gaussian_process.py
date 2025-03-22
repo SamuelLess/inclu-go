@@ -35,5 +35,6 @@ location = {
 y_votes = location["small_stairs"]
 new_user = np.array([[1, 1, 1, 1, 0]])
 
-# Prediction der Sicherheit und Severity
-print(predict(new_user, X_users, y_votes))
+if __name__ == "__main__":
+    # Prediction der Sicherheit und Severity
+    print(predict(new_user, X_users, y_votes))

@@ -1,6 +1,8 @@
 # IncluGO 🚶‍♂️
 **Your journey. Your way.**
 
+<img src="public/pictures/header.png" width="100%"/>
+
 Whether you use a wheelchair, a prosthetic, have visual impairments, 
 or prefer to avoid crowded spaces — we prioritize accessibility for you.
 Because **every disability is unique** to you.

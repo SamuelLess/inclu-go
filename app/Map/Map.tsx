@@ -30,7 +30,7 @@ const FLAG: any = new L.divIcon({
   iconAnchor: [12, 25],
   popupAnchor: [0, -15],
   iconSize: [32, 32],
-  html: `<div style="background-color: #050505;border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${destFlag}</div>`
+  html: `<div style="background-color: #000000;border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${destFlag}</div>`
 });
 
 //@ts-ignore
@@ -39,7 +39,7 @@ const PIN: any = new L.divIcon({
   iconAnchor: [12, 25],
   popupAnchor: [0, -15],
   iconSize: [32, 32],
-  html: `<div style="background-color: #CCCCCC;border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${startPin}</div>`
+  html: `<div style="background-color: #000000;border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${startPin}</div>`
 });
 
 const flip = (arr: LatLngExpression[]) => [arr[1], arr[0]];
@@ -169,11 +169,11 @@ export default function Map() {
         </div> : null}
       <Overlay selectedObstacle={selectedObstacle} onClose={() => setSelectedObstacle(null)} />
       <div className='absolute top-[30%] left-0 z-1000'>
-        <div className='w-[32] bg-primary rounded-r-xl z-1000 p-2 mb-2 inset-shadow-sm shadow-whit'>
+        <div className='w-[32] bg-primary rounded-r-xl z-1000 p-2 mb-2 inset-shadow-sm shadow-white'>
           <UserCircle size={32} color={'white'} />
         </div>
 
-        <div className='w-[32] bg-primary rounded-r-xl z-1000 p-2'>
+        <div className='w-[32] bg-primary rounded-r-xl z-1000 p-2 inset-shadow-sm shadow-white'>
           <Gear size={32}  color={'white'}/>
         </div>
       </div>
