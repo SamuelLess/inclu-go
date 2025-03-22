@@ -27,6 +27,7 @@ function Slider({
     if (_values[0] < 70) return "bg-yellow-500";
     return "bg-red-500";
   };
+  
   const col = "bg-green-500";
 
   return (

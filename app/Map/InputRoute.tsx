@@ -7,8 +7,9 @@ export function InputRoute(props: {
     setDest: React.Dispatch<React.SetStateAction<string>>,
     destRef: React.RefObject<HTMLInputElement | null>,
     start: string,
-    setStart: React.Dispatch<React.SetStateAction<string>>
-    startRef: React.RefObject<HTMLInputElement | null>
+    setStart: React.Dispatch<React.SetStateAction<string>>,
+    startRef: React.RefObject<HTMLInputElement | null>,
+    update: any
 }) {
     return (
         <div className="flex flex-col bg-white p-2 gap-y-2 pt-4">
@@ -18,6 +19,9 @@ export function InputRoute(props: {
                 <Input size={32}
                     ref={props.startRef}
                     value={props.start}
+                    onKeyPress={(event) => {
+                        if (event.key == "Enter")props.update();
+                    }}
                     onChange={(event) => {
                         props.setStart(event.target.value)
                     }} />
@@ -29,6 +33,9 @@ export function InputRoute(props: {
                 <Input size={32}
                     ref={props.destRef}
                     value={props.dest}
+                    onKeyPress={(event) => {
+                        if (event.key == "Enter")props.update();
+                    }}
                     onChange={(event) => {
                         props.setDest(event.target.value)
                     }} />

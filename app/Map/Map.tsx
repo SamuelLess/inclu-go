@@ -9,12 +9,6 @@ import { Overlay } from './Overlay';
 import * as OBSTACLES from './obstacles';
 import Obstacle from './Obstacle';
 
-//const [destination, setDestination] = React.useState("Hallo");
-// const route = getWalkingRoute(START, END, OBSTACLES);
-// console.log(route);
-const adress = getCoordsFromAdress("Hasso-Plattner-Institut Potsdam");
-console.log(adress);
-
 const ClickableMap = ({ onClick }: { onClick: (latlng: { lat: number; lng: number }) => void }) => {
   useMapEvents({
     click(e) {
@@ -38,50 +32,39 @@ export default function Map() {
 
   const [selectedObstacle, setSelectedObstacle] = useState<number | null>(null);
 
-  // useEffect(() => {
-  //   const handleFocus = (_: any) => {
-  //     if (document.activeElement instanceof HTMLInputElement) {
-  //       setPreviousActiveRef(document.activeElement);
-  //     }
-  //   };
-
-  //   document.addEventListener('focusin', handleFocus);
-
-  //   return () => {
-  //     document.removeEventListener('focusin', handleFocus);
-  //   };
-  // }, []);
-
   useEffect(() => {
     const fetchRoute = async() => {
       try {
         const flip = (arr:any) => [arr[1],arr[0]];
         let polygons = OBSTACLES.obstacles.map(obs => ([obs["coords"].map(flip).concat([flip(obs["coords"][0])])]));
-        let startAdr: any, destAdr: any;
-        // try {
-        //   startAdr = await getCoordsFromAdress(start);
-        //   destAdr = await getCoordsFromAdress(destination);
-        // }
-        // catch(error){return;} 
-        const route = await getWalkingRoute(startAdr, destAdr, polygons);
+        const route = await getWalkingRoute(coordinates[0], coordinates[1], polygons);
         if(route)setRoute(route);
       } catch(error){console.log("Error while fetching");}
     }
     fetchRoute();
-  }, [start, destination]);
+  }, [coordinates]);
 
-  const updateCoords = () => {};
+  const updateCoords = () => {
+    const fetchCoords = async() => {
+      let startAdr: any, destAdr: any;
+      try {
+        startAdr = await getCoordsFromAdress(start);
+        destAdr = await getCoordsFromAdress(destination);
+      }
+      catch(error){return;} 
+      setCoordinates([startAdr, destAdr]);
+    }
+    fetchCoords();
+  };
 
   return (
     <div className="h-full w-full relative">
-
       <div className="border h-full w-full">
         <MapContainer center={HPI_POSITION} zoom={15} scrollWheelZoom={true}
           style={{ height: "100%", width: "100%", borderRadius: 1 }}>
           <TileLayer
             url="https://api.maptiler.com/maps/dataviz/{z}/{x}/{y}.png?key=5SQJHNDVIDg6LwTSXS8M"
           />
-
           <ClickableMap onClick={(latlng) => {
             setClickedPosition(latlng)
             console.log(document.activeElement)
@@ -100,7 +83,6 @@ export default function Map() {
 
           {OBSTACLES.obstacles.map((obstacle, id) => {
             return (<Obstacle key={id} obstacleId={id} onClick={()=> {
-              console.log("Obstacle clicked");
               setSelectedObstacle(id);
             }}/>)
           })};

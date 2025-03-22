@@ -124,10 +124,11 @@ const ObstacleCard = (props: {
           <h3 className="text-sm font-semibold text-gray-600 mb-2">BARRIER SEVERITY</h3>
           <GlobalContext.Consumer>
             {(context) => {
-              console.log("props2", props.selectedObstacle);
-              console.log("context", context);
               const severity = context?.severeties[props.selectedObstacle] || 0;
+              console.log("severity", severity);
               return <Slider defaultValue={[severity]} onValueChange={(newValue) => {
+                console.log('newValue', newValue, context);
+                
                 context?.setSevereties((oldSeverities) => {
                   const newSeverities = [...oldSeverities];
                   console.log('newSeverities', newSeverities);

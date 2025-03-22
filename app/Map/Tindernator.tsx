@@ -2,6 +2,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Hammer from 'hammerjs';
 import './stylonator.css';
+import { X, Check } from '@phosphor-icons/react';
+import { NavLink } from "react-router";
+import { Button } from '~/components/ui/button';
 
 interface Card {
   id: Number;
@@ -10,12 +13,10 @@ interface Card {
 
 export function Tindernator(props: { cards: (Card | undefined)[] }) {
   const cards = props.cards;
-
   const tinderContainerRef = useRef(null);
   const nopeRef = useRef(null);
   const loveRef = useRef(null);
-  const [responses, setResponses] = useState<bool[]>([])
-
+  const [responses, setResponses] = useState<bool[]>([]);
 
   useEffect(() => {
     const initCards = () => {
@@ -74,7 +75,6 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
         const keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
 
         event.target.classList.add('removed');
-
         setResponses(responses.concat(keep))
 
         if (keep) {
@@ -94,7 +94,8 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
         }
       });
     });
-  }, []);
+  }, [responses]);
+
 
   const createButtonListener = (love) => (event) => {
     const allCards = document.querySelectorAll('.tinder--card:not(.removed)');
@@ -117,37 +118,56 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
     event.preventDefault();
   };
 
-  return (
-    <div className="tinder flex-column" ref={tinderContainerRef}>
-      <div className="tinder--cards">
-        {cards.map((card) => (
-            <img src={card?.content} key={card.id}  className="tinder--card rounded-2xl" draggable="false" />
-        ))}
-      </div>
+  const allCardsProcessed = responses.length >= cards.length;
 
-      <div className="tinder--buttons">
-        <button
-          ref={nopeRef}
-          id="nope"
-          onClick={
-            createButtonListener(false)
-          }
-        >
-          No
-        </button>
-        <button
-          ref={loveRef}
-          id="love"
-          onClick={
-            createButtonListener(true)
-          }
-        >
-          Slay queen
-        </button>
+  return (
+    <>
+      {!allCardsProcessed && (
+        <p className="mb-8">
+          Swipe through obstacles, tell us what matters,
+          and let our smart system guide you on the smoothest path.
+
+          Ready to move freely?
+        </p>)}
+      <div className="tinder flex-column" ref={tinderContainerRef}>
+
+        <div className="tinder--cards">
+          {cards.map((card) => (
+            <img src={card?.content} key={card.id} className="tinder--card rounded-2xl" draggable="false" />
+          ))}
+        </div>
+
+        {
+          !allCardsProcessed && (
+            <div className="tinder--buttons">
+              <button
+                ref={nopeRef}
+                id="nope"
+                onClick={createButtonListener(false)}
+              >
+                <X size={32} weight="bold" />
+              </button>
+              <button
+                ref={loveRef}
+                id="love"
+                onClick={createButtonListener(true)}
+              >
+                <Check size={32} weight="bold" />
+              </button>
+            </div>)}
+
+        {/* Thank you message with NavLink */}
+        {allCardsProcessed && (
+         <>
+            <h1 className='text-xl'>All done!</h1>
+            <p> We've got enough information to get you started. 
+              As you use the app, our pathfinding wil </p>
+            <NavLink to="/map" className="continue-button">
+              <Button>Start exploring</Button>
+            </NavLink>
+          </>
+        )}
       </div>
-        {responses.map((response) => (
-            <div>{response}</div>
-        ))}
-    </div>
+    </>
   );
-}
+};

@@ -31,24 +31,20 @@ export default function Swipe() {
 
     return (
         <div className="flex h-full w-full flex-col align-middle">
-            <div>
-            <div className="flex w-full flex-col ">
-                <img
-                    src="/IncluGO.svg"
-                    alt="Logo"
-                    className="mb-6 h-24"
-                />
+            <div >
+                <div className="flex w-full flex-col align-start ">
+                    <img
+                        src="/IncluGO.svg"
+                        alt="Logo"
+                        style={{ width: "60%" }}
+                        className="mb-6 mt-6 h-24"
+                    />
 
-                <p className="mb-8">
-                Swipe through obstacles, tell us what matters, 
-                and let our smart system guide you on the smoothest path.
-
-                Ready to move freely?
-                </p>
-            </div>
-            <div>
-                <Tindernator cards={carrrgds} />
-            </div>
+                    
+                </div>
+                <div>
+                    <Tindernator cards={carrrgds} />
+                </div>
             </div>
         </div>
     );

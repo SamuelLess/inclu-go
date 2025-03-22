@@ -30,19 +30,19 @@ export const obstacles : ObstacleObject[] = [
         "type": "stairs",
         "features": [1, 0.2, 0.3, 0]
     },
-    {
+    {//Bild ergänzen
         "name": "bahnhofNord",
         "img": '/obstacles/wheelchair.webp',
 
         "desc": "",
         "coords": [
-            [52.394697, 13.127005],
-            [52.394729, 13.127321],
-            [52.394548, 13.127393],
-            [52.394499, 13.127090]
+            [52.394807,13.128327],
+            [52.394845,13.128676],
+            [52.394734,13.128702],
+            [52.394707,13.128378]
         ],
         "type": "stairs",
-        "features": [1, 0.2, 0.3, 0]
+        "features": [1, 0.6, 0.3, 0]
     },{
         "name": "hpiWald",
         "img": '/obstacles/wheelchair.webp',
@@ -58,10 +58,9 @@ export const obstacles : ObstacleObject[] = [
         "type": "stairs",
         "features": [1, 0.2, 0.3, 0]
     },
-    {
+    {// Bild ergänzen
         "name": "haus1Treppe",
         "img": '/obstacles/wheelchair.webp',
-
         "desc": "",
         "coords": [
             [52.392834,13.126830],
@@ -71,7 +70,32 @@ export const obstacles : ObstacleObject[] = [
         ],
         "type": "stairs",
         "features": [1, 0.2, 0.3, 0]
-    }
+    },
+    {//Bild ergänzen
+        "name": "TreppeAmWeg",
+        "img": '/obstacles/wheelchair.webp',
+        "desc": "",
+        "coords": [
+            [52.393797,13.127356],
+            [52.393804,13.127718],
+            [52.393740,13.127699],
+            [52.393745,13.127305]
+        ],
+        "type": "stairs",
+        "features": [1, 0.2, 0.1, 0.5]
+    },{//alles neu austauschen
+        "name": "",
+        "img": '/obstacles/wheelchair.webp',
+        "desc": "",
+        "coords": [
+            [52.393797,13.127356],
+            [52.393804,13.127718],
+            [52.393740,13.127699],
+            [52.393745,13.127305]
+        ],
+        "type": "stairs",
+        "features": [1, 0.2, 0.1, 0.5]
+    },
 
 
 
