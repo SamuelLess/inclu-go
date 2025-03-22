@@ -15,7 +15,9 @@ Simply swipe right for situations that are a problem to you.
 We will offer you a route specialised for you. Before you go, you can **preview the route** so there are **no more surprises** on the way.
 Change the route as you wish, the app will **learn from you and all other users** so the route will be good on the first try. 
 
-/screenshot
+<p align="center">
+  <img src="public/Screenshot_20250322_123720.png" width="20%">
+</p>
 
 ## What we plan to implement 🔮
 - Adding obstacles with a **personalised barrier severity**
