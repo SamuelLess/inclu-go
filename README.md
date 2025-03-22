@@ -1,12 +1,14 @@
 # IncluGO 🚶‍♂️
 **Your journey. Your way.**
 
-<img src="public/pictures/header.png" width="100%"/>
+<img src="public/pictures/Screenshot from 2025-03-22 12-12-35.png" width="100%"/>
+
 Whether you use a wheelchair, a prosthetic, have visual impairments, 
 or prefer to avoid crowded spaces — we prioritize accessibility for you.
 Because **every disability is unique** to you.
 
-With our novel machine learning algorithm, we can present you with your own unique route planning you deserve.
+Wo don't event want to put you in Boxes. The help you personalize the experience, you just give some hints about what is an obstacle in **your live**.
+Just swipe right for things that are a problem for you. 
 
 ## What we offer already 🌟
 - **Personalised route planning** that helps you avoid inconvenient obstacles
