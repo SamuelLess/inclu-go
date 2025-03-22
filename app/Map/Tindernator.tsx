@@ -99,7 +99,7 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
   }, [responses]);
 
 
-  const createButtonListener = (love) => (event) => {
+  const createButtonListener = (love, ctx) => (event) => {
     const allCards = document.querySelectorAll('.tinder--card:not(.removed)');
     const moveOutWidth = document.body.clientWidth * 1.5;
 
@@ -115,7 +115,7 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
       card.style.transform = `translate(-${moveOutWidth}px, -100px) rotate(30deg)`;
     }
 
-    initCards();
+    //initCards();
 
     event.preventDefault();
   };
@@ -141,22 +141,27 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
 
         {
           !allCardsProcessed && (
-            <div className="tinder--buttons">
-              <button
-                ref={nopeRef}
-                id="nope"
-                onClick={createButtonListener(false)}
-              >
-                <X size={32} weight="bold" />
-              </button>
-              <button
-                ref={loveRef}
-                id="love"
-                onClick={createButtonListener(true)}
-              >
-                <Check size={32} weight="bold" />
-              </button>
-            </div>)}
+            <GlobalContext.Consumer>
+              {(ctx) => (
+              <div className="tinder--buttons">
+                <button
+                  ref={nopeRef}
+                  id="nope"
+                  onClick={createButtonListener(false, ctx)}
+                >
+                  <X size={32} weight="bold" />
+                </button>
+                <button
+                  ref={loveRef}
+                  id="love"
+                  onClick={createButtonListener(true, ctx)}
+                >
+                  <Check size={32} weight="bold" />
+                </button>
+              </div>
+              )}
+            </GlobalContext.Consumer>
+            )}
 
         {/* Thank you message with NavLink */}
         {allCardsProcessed && (

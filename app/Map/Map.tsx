@@ -81,7 +81,7 @@ export default function Map() {
         clearTimeout(timeout);
         setLoading(false);
       });
-    } catch (err) { 
+    } catch (err) {
       console.log("txt"); setInputErr(3); return;
     }
     return () => clearTimeout(timeout);
@@ -168,9 +168,18 @@ export default function Map() {
           </div>
         </div> : null}
       <Overlay selectedObstacle={selectedObstacle} onClose={() => setSelectedObstacle(null)} />
-      <div className='absolute top-[20%] left-0 w-[32] bg-black rounded-r-xl z-1000'>
-        <UserCircle size={32} co />
+      <div className='absolute top-[25%] left-0'>
+        <div className='w-[32] bg-primary rounded-r-xl z-1000 p-2'>
+          <UserCircle size={32} color={'white'} />
+        </div>
+
+        <div className='w-[32] bg-primary rounded-r-xl z-1000 p-2'>
+          <UserCircle size={32} color={'white'} />
+        </div>
+
+
       </div>
+
     </div>
   )
 }
