@@ -8,12 +8,14 @@ or prefer to avoid crowded spaces — we prioritize accessibility for you.
 Because **every disability is unique** to you.
 
 Wo don't event want to put you in Boxes. The help you personalize the experience, you just give some hints about what is an obstacle in **your live**.
-Just swipe right for things that are a problem for you. 
+Simply swipe right for situations that are a problem to you. 
 
-## What we offer already 🌟
-- **Personalised route planning** that helps you avoid inconvenient obstacles
-- A simple **"tinder-like" introduction** that quickly gives you accurate results based on real-life statistics and your preferences
-- A simple interface that helps you to continuously personalize your experience with each day
+/video vom swipen/
+
+We will offer you a route specialised for you. Before you go, you can **preview the route** so there are **no more surprises** on the way.
+Change the route as you wish, the app will **learn from you and all other users** so the route will be good on the first try. 
+
+/screenshot
 
 ## What we plan to implement 🔮
 - Adding obstacles with a **personalised barrier severity**
