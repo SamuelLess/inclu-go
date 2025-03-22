@@ -9,22 +9,24 @@ import { Tindernator } from "~/Map/Tindernator"
 export default function Swipe() {
     const cards = [
         {
-            id: 1,
-            content: "/pictures/kleineBausstelle.webp",
-            features: [0.9,0.7,0.2,0.1]
-        }, {
             id: 2,
-            content: "/obstacles/brokenlift.jpg",
+            content: "/pictures/unbekanntetreppe.webp",
             features: [1, 0.5, 0.2, 0.8]
-        }, {
+        }, 
+        {
+            id: 1,
+            content: "/pictures/kleineBaustelle.webp",
+            features: [0.9,0.7,0.2,0.1]
+        },
+        {
             id: 3,
-            content: "/obstacles/bumpy.jpg", 
+            content: "/pictures/sandweghinterhaus.webp", 
             features: [0.7, 0.2, 0.0, 0.1]
         }, {
             id: 4,
-            content: "/obstacles/handrail.jpg",
+            content: "/pictures/bhftreppesued.webp",
             features: [1, 0.3, 0.1, 0.3]
-        }, {
+        }/*, {
             id: 5,
             content: "/obstacles/incline.jpg",
             features: [0.5, 0.9, 0.1, 0]
@@ -32,18 +34,18 @@ export default function Swipe() {
             id: 6,
             content: "/obstacles/normalstairs.webp",
             features: [0.9, 0.8, 0.1, 0.1]
-        }
+        }*/
     ]
 
     return (
-        <div className="flex h-full w-full flex-col align-middle">
+        <div className="flex px-6 h-full w-full flex-col align-middle">
             <div >
                 <div className="flex w-full flex-col align-start ">
                     <img
                         src="/IncluGO.svg"
                         alt="Logo"
                         style={{ width: "60%" }}
-                        className="mb-6 mt-6 h-24" />
+                        className="mb-4 mt-8 h-24" />
                 </div>
                 <div>
                     <Tindernator cards={cards} />

@@ -15,51 +15,9 @@ export type ObstacleObject = {
 
 // Die Hindernisse beim HPI
 export const obstacles : ObstacleObject[] = [
-    {// Bild ergänzen ?
-        "name": "HPI-Park",
-        "desc": "Desription",
-        "img": '/obstacles/wheelchair.webp',
-        "coords": [
-            [52.392179, 13.125551],
-            [52.392201, 13.125975],
-            [52.391852, 13.125859],
-            [52.391763, 13.126439],
-            [52.391706, 13.126417],
-            [52.391696, 13.125545]
-        ],
-        "type": "path",
-        "features": [1, 0.1, 0, 0.8]
-    },
-    {//Bild ergänzen
-        "name": "bahnhofNord",
-        "img": '/obstacles/wheelchair.webp',
-        "desc": "",
-        "coords": [
-            [52.394807,13.128327],
-            [52.394845,13.128676],
-            [52.394734,13.128702],
-            [52.394707,13.128378]
-        ],
-        "type": "stairs",
-        "features": [1, 0.6, 0.3, 0]
-    },
-    {// Bild ergänzen? 
-        "name": "hpiWald",
-        "img": '/obstacles/wheelchair.webp',
-        "desc": "",
-        "coords": [
-            [52.393494, 13.122922],
-            [52.393625, 13.124151],
-            [52.393776, 13.126672],
-            [52.392922, 13.126339],
-            [52.392853, 13.123105]
-        ],
-        "type": "path",
-        "features": [1, 0.1, 0, 0.8]
-    },
-    {// Bild ergänzen
-        "name": "haus1Treppe",
-        "img": '/obstacles/wheelchair.webp',
+    {//wir haben kein Bild
+        "name": "Treppe",
+        "img": 'pictures/white.webp',
         "desc": "",
         "coords": [
             [52.392834,13.126830],
@@ -70,10 +28,10 @@ export const obstacles : ObstacleObject[] = [
         "type": "stairs",
         "features": [1, 0.2, 0.3, 0]
     },
-    {//Bild ergänzen
-        "name": "TreppeAmWeg",
-        "img": '/obstacles/wheelchair.webp',
-        "desc": "",
+    {//zwei Treppen
+        "name": "Treppe",
+        "img": '/pictures/zweiTreppen.webp',
+        "desc": "Zwei Treppen, es gibt einen einfachen, minimalen Umweg ohne Stufen.",
         "coords": [
             [52.393797,13.127356],
             [52.393804,13.127718],
@@ -85,10 +43,10 @@ export const obstacles : ObstacleObject[] = [
     },
 
 
-    {//kleine Baustelle nahe der Bushaltestelle
+    {//Flatterband nahe der Bushaltestelle
         "name": "Flatterband",
-        "img": '/obstacles/wheelchair.webp',
-        "desc": "",
+        "img": '/pictures/kleineBaustelle.webp',
+        "desc": "Ein Stück vom Gehweg ist vorübergehend mit Flatterband abgesperrt wegen Bauarbeiten.",
         "coords": [
             [52.393882,13.128509],
             [52.393877,13.128633],
@@ -100,7 +58,7 @@ export const obstacles : ObstacleObject[] = [
     },
     {// nicht eingezeichnete Treppe
         "name": "Treppe",
-        "img": '/obstacles/wheelchair.webp',
+        "img": '/pictures/unbekanntetreppe.webp',
         "desc": "",
         "coords": [
             [52.392444,13.124309],
@@ -112,9 +70,9 @@ export const obstacles : ObstacleObject[] = [
         "features": [1, 0.2, 0, 0]
     },
     {// kurzer Sandweg
-        "name": "schlechter Weg",
-        "img": '/obstacles/wheelchair.webp',
-        "desc": "",
+        "name": "unbefestiger Weg",
+        "img": '/pictures/kurzerSandweg.webp',
+        "desc": "Das Wegstück ist nicht befesttig mit sehr sandiger Erde.",
         "coords": [
             [52.392403,13.128912],
             [52.392287,13.129097],
@@ -126,8 +84,8 @@ export const obstacles : ObstacleObject[] = [
     },
     {//schmales Pflaster
         "name": "schmaler Pflastersteinweg",
-        "img": '/obstacles/wheelchair.webp',
-        "desc": "",
+        "img": '/pictures/schmalesPflaster.webp',
+        "desc": "Das Pflasterwegstück ist sehr schmal.",
         "coords": [
             [52.393118,13.128810],
             [52.392951,13.129102],
@@ -138,9 +96,9 @@ export const obstacles : ObstacleObject[] = [
         "features": [0.8, 0.1, 0, 0.2]
     },
     {// Bhf Treppe nord
-        "name": "lange Treppe ohne ",
-        "img": '/obstacles/wheelchair.webp',
-        "desc": "",
+        "name": "lange Treppe ohne Alternativweg",
+        "img": '/pictures/bhftreppenord.webp',
+        "desc": "Lange Treppe zum Nordausgang vom Bahnhof Griebnitzsee. Es gibt keinen Fahrstuhl oder andere direkte alternative.",
         "coords": [
             [52.394789,13.128453],
             [52.394803,13.128536],
@@ -150,5 +108,17 @@ export const obstacles : ObstacleObject[] = [
         "type": "stairs",
         "features": [1, 0.8, 0, 0]
     },
-    
+    {// Bhf Fahrstuhl bsp
+        "name": "Fahrstuhl",
+        "img": '/pictures/bhfaufzug.webp',
+        "desc": "",
+        "coords": [
+            [52.394201,13.128614],
+            [52.394205,13.128681],
+            [52.394169,13.128684],
+            [52.394169,13.128630]
+        ],
+        "type": "elevator",
+        "features": [0, 0, 0.3, 0]
+    },
 ];

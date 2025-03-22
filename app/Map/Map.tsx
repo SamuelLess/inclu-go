@@ -20,6 +20,27 @@ const ClickableMap = ({ onClick }: { onClick: (latlng: { lat: number; lng: numbe
   return null;
 };
 
+const destFlag = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M42.76,50A8,8,0,0,0,40,56V224a8,8,0,0,0,16,0V179.77c26.79-21.16,49.87-9.75,76.45,3.41,16.4,8.11,34.06,16.85,53,16.85,13.93,0,28.54-4.75,43.82-18a8,8,0,0,0,2.76-6V56A8,8,0,0,0,218.76,50c-28,24.23-51.72,12.49-79.21-1.12C111.07,34.76,78.78,18.79,42.76,50ZM216,172.25c-26.79,21.16-49.87,9.74-76.45-3.41-25-12.35-52.81-26.13-83.55-8.4V59.79c26.79-21.16,49.87-9.75,76.45,3.4,25,12.35,52.82,26.13,83.55,8.4Z"></path></svg>';
+const startPin = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"></path></svg>';
+
+//@ts-ignore
+const FLAG: any = new L.divIcon({
+  className: '',
+  iconAnchor: [12, 25],
+  popupAnchor: [0, -15],
+  iconSize: [32, 32],
+  html: `<div style="border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${destFlag}</div>`
+});
+
+//@ts-ignore
+const PIN: any = new L.divIcon({
+  className: '',
+  iconAnchor: [12, 25],
+  popupAnchor: [0, -15],
+  iconSize: [32, 32],
+  html: `<div style="border-radius: 50%; width: 32px; height: 32px; padding: 8px;">${startPin}</div>`
+});
+
 const flip = (arr:LatLngExpression[]) => [arr[1],arr[0]];
 
 export default function Map() {
@@ -27,8 +48,9 @@ export default function Map() {
   const [loading, setLoading] = useState(false);
   const [destination, setDestination] = useState("Haus L");
   const [start, setStart] = useState("Haus 1");
-  const [coordinates, setCoordinates] = useState(); 
+  const [coordinates, setCoordinates] = useState<LatLngExpression[]>([[0,0],[0,0]]); 
   const [route, setRoute] = useState<LatLngExpression[]>([]);
+  const [adressInputErr, setInputErr] = useState(0);
 
   const destinationRef = React.useRef<HTMLInputElement | null>(null);
   const startRef = React.useRef<HTMLInputElement | null>(null);
@@ -49,7 +71,8 @@ export default function Map() {
         //@ts-ignore
         const route = await getWalkingRoute(coordinates[0], coordinates[1], relevantPolygons);
         if(route)setRoute(route);
-      } catch(error){console.log("Error while fetching");}
+        else{throw new Error("no route");}
+      } catch(error){setInputErr(3);return;}
     }
     const timeout = setTimeout(() => setLoading(true),200);
       fetchRoute().then(() => {
@@ -62,11 +85,17 @@ export default function Map() {
   const updateCoords = () => {
     const fetchCoords = async() => {
       let startAdr: any, destAdr: any;
+      setInputErr(0);
       try {
         startAdr = await getCoordsFromAdress(start);
-        destAdr = await getCoordsFromAdress(destination);
+        if(!startAdr)throw new Error("not found");
       }
-      catch(error){return;}
+      catch(error){setInputErr(1);return;}
+      try {
+        destAdr = await getCoordsFromAdress(destination);
+        if(!destAdr)throw new Error("not found");
+      }
+      catch(error){setInputErr(2);return;}
       //@ts-ignore 
       setCoordinates([flip(startAdr), flip(destAdr)]);
     }
@@ -76,7 +105,7 @@ export default function Map() {
   return (
     <div className="h-full w-full relative">
       <div className="border h-full w-full">
-        <MapContainer center={HPI_POSITION} zoom={15} scrollWheelZoom={true}
+        <MapContainer center={HPI_POSITION} zoom={16} scrollWheelZoom={true}
           style={{ height: "100%", width: "100%", borderRadius: 1 }}>
           <TileLayer
             url="https://api.maptiler.com/maps/dataviz/{z}/{x}/{y}.png?key=5SQJHNDVIDg6LwTSXS8M"
@@ -108,21 +137,22 @@ export default function Map() {
             );
           })};
 
-          <Marker position={coordinates[]}></Marker>
+          <Marker icon={PIN} position={coordinates[0]}></Marker>
+          <Marker icon={FLAG} position={coordinates[1]}></Marker>
         </MapContainer>
       </div>
 
       <div className='absolute top-0 left-0 w-full z-1000'>
-        <InputRoute
+        <InputRoute 
           dest={destination} setDest={setDestination} destRef={destinationRef}
-          start={start} setStart={setStart} startRef={startRef} update={updateCoords} 
+          start={start} setStart={setStart} startRef={startRef} update={updateCoords}
+          error = {adressInputErr}
         />
         <div className="w-full h-2 bg-white"></div>
         <div
           style={{
             height: "100px",
-            opacity: 0.5,
-            background: "linear-gradientOops!(to bottom, white, transparent)",
+            background: "linear-gradient(to bottom, white, transparent)",
           }}
         ></div>
       </div>
@@ -133,6 +163,9 @@ export default function Map() {
         </div>
       </div> : null}
       <Overlay selectedObstacle={selectedObstacle} onClose={() => setSelectedObstacle(null)}/>
+      <div className='absolute top-[20%] left-0 w-[32] h-32 bg-black rounded-r-xl z-1000'>
+        sadfj
+      </div>
     </div>
   )
 }

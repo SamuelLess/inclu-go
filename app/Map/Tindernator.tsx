@@ -125,7 +125,7 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
   return (
     <>
       {!allCardsProcessed && (
-        <p className="mb-8">
+        <p className="mb-4">
           Swipe through obstacles, tell us what matters,
           and let our smart system guide you on the smoothest path.
 

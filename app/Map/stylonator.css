@@ -1,7 +1,7 @@
 .tinder {
   position: relative;
   width: 100%;
-  max-width: 700px;
+  max-width: 650px;
 }
 
 .tinder--cards {
@@ -47,7 +47,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  margin: 0 50px;
+  margin: 0 20px;
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 

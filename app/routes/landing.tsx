@@ -24,9 +24,8 @@ export default function Landing() {
         <Button 
           asChild 
           size="lg" 
-          className="w-full max-w-[200px]"
-        >
-          <NavLink to="/map">Continue</NavLink>
+          className="w-full max-w-[200px]" >
+          <NavLink to="/map">Get Started</NavLink>
         </Button>
       </div>
     </div>

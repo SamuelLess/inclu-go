@@ -7,7 +7,8 @@ export const hpiBuilding: LatLngExpression[] = [
     [52.393637, 13.122751],
 ];
 
-export const HPI_POSITION: LatLngExpression = [52.391, 13.131];
+export const HPI_POSITION: LatLngExpression = [52.3925, 13.128];
+//52.3925132,13.12289
 
 const hpiPark: LatLngExpression[] = [
     [52.392179, 13.125551],
