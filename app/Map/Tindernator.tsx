@@ -7,6 +7,7 @@ import { NavLink } from "react-router";
 import { Button } from '~/components/ui/button';
 
 import { GlobalContext } from '../Map/Globalstate';
+import { obstacles } from './obstacles';
 
 interface Card {
   id: Number;
@@ -98,7 +99,35 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
     });
   }, [responses]);
 
+  const calcSeverities = (ctx) => {
+    let featSum = [0, 0, 0, 0];
+    responses.forEach((response, idx) => {
+      const card = cards[idx];
+      if (response) {
+        featSum = featSum.map((val, i) => val + card.features[i]);
+      }
+    });
+    
+    featSum = featSum.map((val) => val / responses.length);
+    console.log("user profile", featSum);
+    
+    let newSev = ctx?.severeties;
+    obstacles.forEach((obstacle, idx) => {
+      let maxdist = 0;
+      obstacle.features.forEach((feat, i) => {
+        maxdist = Math.max(maxdist, Math.max(0, featSum[i] - obstacle.features[i]));
+      });
+      newSev[idx] = maxdist;
+    });
+    console.log(newSev);
+    let maxsev = newSev.reduce((a, b) => Math.max(a, b));
+    console.log(maxsev);
+    newSev = newSev.map((val) => 1 - (val / maxsev));
+    ctx?.setSevereties(newSev);
+  }
 
+
+  
   const createButtonListener = (love, ctx) => (event) => {
     const allCards = document.querySelectorAll('.tinder--card:not(.removed)');
     const moveOutWidth = document.body.clientWidth * 1.5;
@@ -114,9 +143,6 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
     } else {
       card.style.transform = `translate(-${moveOutWidth}px, -100px) rotate(30deg)`;
     }
-
-    //initCards();
-
     event.preventDefault();
   };
 
@@ -129,18 +155,17 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
           Swipe through obstacles, tell us what matters,
           and let our smart system guide you on the smoothest path.
 
-          Ready to move freely?
+          Is this a major obstacle for you? Right for Yes, Left for No.
         </p>)}
       <div className="tinder flex-column" ref={tinderContainerRef}>
 
         <div className="tinder--cards">
           {cards.map((card) => (
-            <img src={card?.content} key={card.id} className="tinder--card rounded-2xl" draggable="false" />
+            <img id={card.id} src={card?.content} key={card.id} className="tinder--card rounded-2xl" draggable="false" />
           ))}
         </div>
 
-        {
-          !allCardsProcessed && (
+        {!allCardsProcessed && (
             <GlobalContext.Consumer>
               {(ctx) => (
               <div className="tinder--buttons">
@@ -173,7 +198,10 @@ export function Tindernator(props: { cards: (Card | undefined)[] }) {
 
             <GlobalContext.Consumer>
               {(context) => (
-                <Button onClick={context?.setOnMap(true)}>Start exploring</Button>
+                <Button onClick={() => {
+                  context?.setOnMap(true);
+                  calcSeverities(context);
+                }}>Start exploring</Button>
               )}
             </GlobalContext.Consumer>
               </center>

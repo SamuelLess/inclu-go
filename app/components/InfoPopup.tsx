@@ -4,66 +4,7 @@ import { Slider } from "~/components/ui/slider";
 import { GlobalContext } from "~/Map/Globalstate";
 import { obstacles } from "~/Map/obstacles";
 
-const OBSTACLES = {
-  beach: {
-    img: '/obstacles/beach.jpg',
-    severity: 80,
-    description: 'Sandy environment',
-    status: 'Diffirent access paths planned.',
-    about: 'This is just some beach.',
-  },
-  stairs: {
-    img: '/obstacles/normalstairs.webp',
-    severity: 40,
-    description: 'Stairs',
-    status: '',
-  },
-  broken_lift: {
-    img: '/obstacles/brokenlift.jpg',
-    severity: 85,
-    description: 'Broken Lift',
-    status: 'under maintenance',
-    about: 'Elevator in City Shopping Mall broken. Should be repaired in 2 days.',
-  },
-  bumpy_path: {
-    img: '/obstacles/bumpy.jpg',
-    severity: 60,
-    description: 'Bumpy Path',
-    status: '',
-    about: 'Uneven pavement makes movement difficult.',
-  },
-  missing_handrail: {
-    img: '/obstacles/handrail.jpg',
-    severity: 50,
-    description: 'Missing Handrail',
-    status: '',
-    about: 'No handrail support on a steep staircase.',
-  },
-  steep_incline: {
-    img: '/obstacles/incline.jpg',
-    severity: 75,
-    description: 'Steep Incline',
-    status: 'no alternative route',
-    about: 'A steep hill makes wheelchair movement challenging.',
-  },
-  unusual_stairs: {
-    img: '/obstacles/weirdstairs.jpg',
-    severity: 70,
-    description: 'Unusual Stairs',
-    status: '',
-    about: 'Oddly shaped stairs that are difficult to navigate.',
-  },
-  wheelchair_access: {
-    img: '/obstacles/wheelchair.webp',
-    severity: 30,
-    description: 'Limited Wheelchair Access',
-    status: 'needs improvement',
-    about: 'Wheelchair access is available but not optimal.',
-  },
-};
 
-
-export const ALL_TYPES = Object.keys(OBSTACLES);
 
 const ObstacleCard = (props: {
   selectedObstacle: number,
@@ -72,8 +13,6 @@ const ObstacleCard = (props: {
   onClose?: () => void
 }) => {
   // @ts-ignore
-  const obstacle = OBSTACLES[props.type] || OBSTACLES.beach;
-  const [severity, setSeverity] = useState(obstacle.severity);
   const [isClosing, setIsClosing] = useState(false);
   
   const ourObstacle = obstacles[props.selectedObstacle];

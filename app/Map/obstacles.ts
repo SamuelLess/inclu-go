@@ -39,7 +39,7 @@ export const obstacles : ObstacleObject[] = [
             [52.393745,13.127305]
         ],
         "type": "stairs",
-        "features": [1, 0.2, 0.1, 0.5]
+        "features": [0.6, 0.2, 0.1, 0.1]
     },
     {//Flatterband nahe der Bushaltestelle
         "name": "Flatterband",

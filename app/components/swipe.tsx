@@ -9,32 +9,28 @@ import { Tindernator } from "~/Map/Tindernator"
 export default function Swipe() {
     const cards = [
         {
-            id: 2,
+            id: 1,
             content: "/pictures/unbekanntetreppe.webp",
-            features: [1, 0.5, 0.2, 0.8]
+            features: [1, 0.1, 0.1, 0.0]
         }, 
         {
-            id: 1,
+            id: 2,
             content: "/pictures/kleineBaustelle.webp",
-            features: [0.9,0.7,0.2,0.1]
+            features: [0.1,0.1,0.2,1.0]
         },
         {
             id: 3,
             content: "/pictures/sandweghinterhaus.webp", 
-            features: [0.7, 0.2, 0.0, 0.1]
+            features: [0.6, 0.8, 0.0, 0.1]
         }, {
             id: 4,
             content: "/pictures/bhftreppesued.webp",
-            features: [1, 0.3, 0.1, 0.3]
-        }/*, {
-            id: 5,
-            content: "/obstacles/incline.jpg",
-            features: [0.5, 0.9, 0.1, 0]
+            features: [1, 0.3, 0.1, 0.1]
         }, {
-            id: 6,
-            content: "/obstacles/normalstairs.webp",
-            features: [0.9, 0.8, 0.1, 0.1]
-        }*/
+            id: 5,
+            content: "/pictures/meckstrasse.jpg",
+            features: [0.2, 0, 0.1, 0.9]
+        }
     ]
 
     return (

@@ -9,7 +9,7 @@ import { Overlay } from './Overlay';
 import * as OBSTACLES from './obstacles';
 import Obstacle from './Obstacle';
 import { GlobalContext } from './Globalstate';
-import { UserCircle } from '@phosphor-icons/react';
+import { UserCircle, Gear } from '@phosphor-icons/react';
 import { Loader2 } from 'lucide-react';
 
 const ClickableMap = ({ onClick }: { onClick: (latlng: { lat: number; lng: number }) => void }) => {
@@ -168,16 +168,14 @@ export default function Map() {
           </div>
         </div> : null}
       <Overlay selectedObstacle={selectedObstacle} onClose={() => setSelectedObstacle(null)} />
-      <div className='absolute top-[25%] left-0'>
-        <div className='w-[32] bg-primary rounded-r-xl z-1000 p-2'>
+      <div className='absolute top-[30%] left-0 z-1000'>
+        <div className='w-[32] bg-primary rounded-r-xl z-1000 p-2 mb-2'>
           <UserCircle size={32} color={'white'} />
         </div>
 
         <div className='w-[32] bg-primary rounded-r-xl z-1000 p-2'>
-          <UserCircle size={32} color={'white'} />
+          <Gear size={32}  color={'white'}/>
         </div>
-
-
       </div>
 
     </div>
