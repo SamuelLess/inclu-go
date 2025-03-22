@@ -7,10 +7,10 @@ import { Tindernator } from "~/Map/Tindernator"
 // 3: Accessebility to blind people
 
 export default function Swipe() {
-    const carrrgds = [
+    const cards = [
         {
             id: 1,
-            content: "/obstacles/beach.jpg",
+            content: "/pictures/kleineBausstelle.webp",
             features: [0.9,0.7,0.2,0.1]
         }, {
             id: 2,
@@ -43,13 +43,10 @@ export default function Swipe() {
                         src="/IncluGO.svg"
                         alt="Logo"
                         style={{ width: "60%" }}
-                        className="mb-6 mt-6 h-24"
-                    />
-
-                    
+                        className="mb-6 mt-6 h-24" />
                 </div>
                 <div>
-                    <Tindernator cards={carrrgds} />
+                    <Tindernator cards={cards} />
                 </div>
             </div>
         </div>

@@ -102,11 +102,13 @@ export default function Map() {
               setSelectedObstacle(id);
             }}/>)
           })};
-          {OBSTACLES.obstacles.filter((x,i) => globalContext?.severeties[i]! >= 0.7).map((obstacle, id) => {
+          {OBSTACLES.obstacles.filter((x, i) => globalContext?.severeties[i]! >= 0.7).map((obstacle, id) => {
             return (
               <Polygon key={id} pathOptions={{ color: 'red', stroke: false }} positions={obstacle["coords"]} />
             );
           })};
+
+          <Marker position={coordinates[]}></Marker>
         </MapContainer>
       </div>
 
@@ -120,7 +122,7 @@ export default function Map() {
           style={{
             height: "100px",
             opacity: 0.5,
-            background: "linear-gradient(to bottom, white, transparent)",
+            background: "linear-gradientOops!(to bottom, white, transparent)",
           }}
         ></div>
       </div>

@@ -84,7 +84,7 @@ export const obstacles : ObstacleObject[] = [
         "features": [1, 0.2, 0.1, 0.5]
     },
 
-    
+
     {//kleine Baustelle nahe der Bushaltestelle
         "name": "Flatterband",
         "img": '/obstacles/wheelchair.webp',
@@ -98,28 +98,57 @@ export const obstacles : ObstacleObject[] = [
         "type": "path",
         "features": [0, 0, 0, 1]
     },
-    {
-        "name": "",
+    {// nicht eingezeichnete Treppe
+        "name": "Treppe",
         "img": '/obstacles/wheelchair.webp',
         "desc": "",
         "coords": [
-            [],
-            [],
-            [],
+            [52.392444,13.124309],
+            [52.392447,13.124325],
+            [52.392426,13.124330],
+            [52.392424,13.124309]
         ],
         "type": "stairs",
-        "features": [0, 0, 0, 0]
+        "features": [1, 0.2, 0, 0]
     },
-    {
-        "name": "",
+    {// kurzer Sandweg
+        "name": "schlechter Weg",
         "img": '/obstacles/wheelchair.webp',
         "desc": "",
         "coords": [
-            [],
-            [],
-            [],
+            [52.392403,13.128912],
+            [52.392287,13.129097],
+            [52.392251,13.129038],
+            [52.392337,13.128847]
+        ],
+        "type": "path",
+        "features": [1, 0.3, 0, 0.3]
+    },
+    {//schmales Pflaster
+        "name": "schmaler Pflastersteinweg",
+        "img": '/obstacles/wheelchair.webp',
+        "desc": "",
+        "coords": [
+            [52.393118,13.128810],
+            [52.392951,13.129102],
+            [52.392894,13.129062],
+            [52.393008,13.128826]
+        ],
+        "type": "path",
+        "features": [0.8, 0.1, 0, 0.2]
+    },
+    {// Bhf Treppe nord
+        "name": "lange Treppe ohne ",
+        "img": '/obstacles/wheelchair.webp',
+        "desc": "",
+        "coords": [
+            [52.394789,13.128453],
+            [52.394803,13.128536],
+            [52.394725,13.128549],
+            [52.394712,13.128477]
         ],
         "type": "stairs",
-        "features": [0, 0, 0, 0]
+        "features": [1, 0.8, 0, 0]
     },
+    
 ];
