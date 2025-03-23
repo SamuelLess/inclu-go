@@ -11,7 +11,7 @@ While wheelchair-users have to avoid stairs, people with mental disabilities mig
 There is so much diversity, that wo don't even want to put you in boxes by your diagnosis. To help you personalize the experience, you just give some hints about what is an obstacle in **your live**.
 Simply swipe right for situations that are a problem to you. 
 
-![YouTube Demo](https://www.youtube.com/watch/-fjqKHxNptQ)
+[YouTube Demo](https://www.youtube.com/watch/-fjqKHxNptQ)
 
 We will offer you a route specialised for you. Before you go, you can **preview the route** so there are **no more surprises** on the way.
 Change the route as you wish, the app will **learn from you and all other users** so the route will be good on the first try. 
